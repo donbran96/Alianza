@@ -1,0 +1,60 @@
+.caja{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.galeria .miniaturas img{
+    width: 100px;
+    height: 100px;
+    opacity: 0.5;
+    transition: all 0.3s ease-in-out;
+}
+.galeria .miniaturas img:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+.activo{
+    opacity: 1 !important;
+}
+.galeria .grande{
+    
+}
+.galeria .grande img{
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+}
+.informacion .nombre{
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+.informacion .puja_inicial{
+
+}
+.formulario{
+    display: flex;
+    margin-top: 20px;
+}
+.formulario form{
+    display: flex;
+    align-items: center;
+}
+.boton{
+    display: inline-block;
+    background: var(--azul);
+    padding: 10px 25px;
+    border-radius: 5px;
+    color: var(--blanco);
+    text-decoration: none;
+    border: none;
+}
+.boton:hover{
+    cursor: pointer;
+    background: var(--verde);
+    color: var(--negro);
+}
+.valido{
+    color: var(--verde);
+}
+.no_valido{
+    color: var(--rojo);
+}

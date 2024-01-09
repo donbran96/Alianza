@@ -1,0 +1,27 @@
+<div class="contenedor nosotros margin-vertical padding-vertical">
+    <div class="caja-1">
+        <h3>Quienes somos</h3>
+        <div>
+            <i class="fa-solid fa-users-gear"></i>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+    <div class="caja-2">
+        <div (mouseover)="pintarcaja(0)" (mouseout)="despintarcaja(0)" [ngClass]="{ 'hoveractivo_caja' : hoveractivo[0]}">
+            <h3 [ngClass]="{ 'hoveractivo_textos' : hoveractivo[0]}">Nuestra Visión</h3>
+            <p [ngClass]="{ 'hoveractivo_textos' : hoveractivo[0]}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div (mouseover)="pintarcaja(1)" (mouseout)="despintarcaja(1)" [ngClass]="{ 'hoveractivo_caja' : hoveractivo[1]}">
+            <h3 [ngClass]="{ 'hoveractivo_textos' : hoveractivo[1]}">Nuestra Misión</h3>
+            <p [ngClass]="{ 'hoveractivo_textos' : hoveractivo[1]}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div (mouseover)="pintarcaja(2)" (mouseout)="despintarcaja(2)" [ngClass]="{ 'hoveractivo_caja' : hoveractivo[2]}">
+            <h3 [ngClass]="{ 'hoveractivo_textos' : hoveractivo[2]}">Nuestros Valores</h3>
+            <p [ngClass]="{ 'hoveractivo_textos' : hoveractivo[2]}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div (mouseover)="pintarcaja(3)" (mouseout)="despintarcaja(3)" [ngClass]="{ 'hoveractivo_caja' : hoveractivo[3]}">
+            <h3 [ngClass]="{ 'hoveractivo_textos' : hoveractivo[3]}">Nuestros Objetivos</h3>
+            <p [ngClass]="{ 'hoveractivo_textos' : hoveractivo[3]}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do elusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </div>
+</div>

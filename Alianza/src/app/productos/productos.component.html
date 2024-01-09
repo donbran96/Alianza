@@ -1,0 +1,31 @@
+<div class="contenedor">
+    <div class="productos margin-vertical">
+        <ul class="grid-productos">
+            @for(producto of productos; track producto.titulo){
+              <li>
+                <!--<div class="imagenes">
+                    @for (imagen of producto.imagenes; track imagen) {
+                        <img src="{{imagen}}" alt="">                
+                    }
+                </div>-->
+                <div class="imagen"><img src="{{producto.imagenes[0]}}" alt=""></div>
+                <div class="titulo">{{producto.titulo}}</div>
+                <div class="puja-inicial">Puja actual: ${{producto.puja_actual}}</div>
+                <div class="categorias"><span>Categorías: </span>
+                    @for(categoria of producto.categorias; track $index){
+                        <span>{{categoria}}</span>
+                        @if (producto.categorias.length-1!=$index) {
+                            <span>, </span>
+                        }
+                    }
+                </div>
+                <div class="boton">
+                    <a [routerLink]="'/productos/' + producto.titulo">Pujar</a>
+
+                </div>
+              </li>
+            }
+        </ul>
+        <!--<button (click)="mostrarproductos()">Mostrar productos en consola</button>-->
+    </div>
+</div>

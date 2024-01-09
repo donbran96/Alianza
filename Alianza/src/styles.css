@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --azul: #0068B0;
+    --verde: #61CE70;
+    --gris: #F4F4F4;
+    --blanco: #fff;
+    --negro: #1c1c1c;
+    --rojo: #b90000;
+  }
+  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.contenedor{
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 90%;
+}
+.margin-vertical{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.margin-arriba{
+    margin-top: 60px;
+}
+.margin-abajo{
+    margin-bottom: 60px;
+}
+.padding-vertical{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.padding-arriba{
+    padding-top: 20px;
+}
+.padding-abajo{
+    padding-bottom: 20px;
+}

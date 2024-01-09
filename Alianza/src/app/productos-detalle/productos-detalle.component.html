@@ -1,0 +1,36 @@
+<div class="contenedor margin-vertical caja">
+    <div class="galeria">
+        <div class="grande">
+            @if (mostrarimagen) {
+                <img [src]="imagengrande" alt="" class="imagen">
+            }
+        </div>
+        <div class="miniaturas">
+            @for (imagen of imagenes; track $index) {
+                <img [src]="imagen" alt="" class="miniaturas" (click)="cambiarImagen($index)" [ngClass]="{'activo': activo[$index]}">
+            }
+        </div>
+    </div>
+    <div class="informacion">
+        <div class="nombre">{{nombre}}</div>
+        <span class="puja_inicial">Puja actual: {{puja_actual}}$</span><br>
+        <span class="fecha_fin">Fin de la subasta {{fecha}}</span><br>
+        <span class="aumento">Debes aumentar mínimo {{aumento}}$</span><br>
+        <span class="categorias">Categorías:
+        @for (categoria of categorias; track $index) {
+            <span>{{categoria}}</span>
+            @if (categorias.length-1!=$index) {
+                <span>, </span>
+            }
+        }
+        </span>
+        <div class="formulario">
+            <form>
+                <input type="number" id="puja" [(ngModel)]="puja" [ngModelOptions]="{standalone: true}" [step]="aumento">
+                <span>$</span>
+            </form>
+            <button (click)="enviarpuja()" class="boton">Pujar</button>
+        </div>
+        <p [ngClass]="{'valido':valido,'no_valido':!valido}">{{error}}</p>
+    </div>
+</div>

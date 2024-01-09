@@ -1,0 +1,12 @@
+div.subastas{
+    display: flex;
+    justify-content: space-between;
+}
+div.subastas a{
+    display: inline-block;
+    background: var(--azul);
+    padding: 10px 25px;
+    border-radius: 5px;
+    color: var(--blanco);
+    text-decoration: none;
+}
