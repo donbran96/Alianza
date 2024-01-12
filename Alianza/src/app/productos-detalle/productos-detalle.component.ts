@@ -30,6 +30,13 @@ export class ProductosDetalleComponent implements OnInit {
   error:string='';
   valido:boolean=false;
   puja_aumento:number=0;
+  //datos de Alianza
+  tipo:string='';
+  marca:string='';
+  modelo:string='';
+  color:string='';
+  anio:number=0;
+  placa:string='';
   ngOnInit(){
     this.nombre=this.titulo;
     this.productoEncontrado = this.productos.find(producto => producto.titulo === this.nombre);
@@ -42,6 +49,12 @@ export class ProductosDetalleComponent implements OnInit {
     this.imagengrande=this.productoEncontrado['imagenes'][0];
     this.puja_aumento=this.puja_actual+this.aumento;
     this.puja=this.puja_aumento;
+    this.tipo=this.productoEncontrado['tipo'];
+    this.marca=this.productoEncontrado['marca'];
+    this.modelo=this.productoEncontrado['modelo'];
+    this.color=this.productoEncontrado['color'];
+    this.anio=this.productoEncontrado['anio'];
+    this.placa=this.productoEncontrado['placa'];
   }
   formatearFecha(fecha_fin:Date):string{
     const dia=fecha_fin.getDate();

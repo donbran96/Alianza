@@ -9,16 +9,20 @@
                     }
                 </div>-->
                 <div class="imagen"><img src="{{producto.imagenes[0]}}" alt=""></div>
-                <div class="titulo">{{producto.titulo}}</div>
-                <div class="puja-inicial">Puja actual: ${{producto.puja_actual}}</div>
-                <div class="categorias"><span>Categorías: </span>
+                <div class="tipo">Tipo: {{producto.tipo}}</div>
+                <div class="marca">Marca: {{producto.marca}}</div>
+                <div class="modelo">Modelo: {{producto.modelo}}</div>
+                <div class="color">Color: {{producto.color}}</div>
+                <div class="año">Año: {{producto.anio}}</div>
+                <div class="placa">Placa: {{producto.placa}}</div>
+                <!--<div class="categorias"><span>Categorías: </span>
                     @for(categoria of producto.categorias; track $index){
                         <span>{{categoria}}</span>
                         @if (producto.categorias.length-1!=$index) {
                             <span>, </span>
                         }
                     }
-                </div>
+                </div>-->
                 <div class="boton">
                     <a [routerLink]="'/productos/' + producto.titulo">Pujar</a>
 
