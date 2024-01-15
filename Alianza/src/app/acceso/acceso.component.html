@@ -1,0 +1,11 @@
+<div class="contenedor centrar margin-vertical">
+    @if(registrarse){
+        <app-registro></app-registro>
+        <p class="margin-arriba">También puedes iniciar sesión:</p>       
+        <button (click)="login()" class="boton ">Iniciar Sesión</button>
+    }@else{
+        <app-login></app-login>
+        <p class="margin-arriba">También puedes registrarte:</p>
+        <button (click)="registro()" class="boton">Registrarse</button>
+    }
+</div>

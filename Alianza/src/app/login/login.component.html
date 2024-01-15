@@ -1,0 +1,19 @@
+<div>
+    <form [formGroup]="loginForm" (ngSubmit)="enviarlogin()">
+        <div>
+            <label>
+                Correo
+                <input type="text" formControlName="correo">
+            </label>
+        </div>
+        <div>
+            <label>
+                Contraseña
+                <input type="password" formControlName="password">
+            </label>
+        </div>
+        <button [disabled]="!loginForm.valid" type="submit" class="boton">Iniciar Sesión</button>
+    </form>
+    {{loginForm.value.correo}}<br>
+    {{loginForm.value.password}}
+</div>

@@ -38,20 +38,6 @@
     display: flex;
     align-items: center;
 }
-.boton{
-    display: inline-block;
-    background: var(--azul);
-    padding: 10px 25px;
-    border-radius: 5px;
-    color: var(--blanco);
-    text-decoration: none;
-    border: none;
-}
-.boton:hover{
-    cursor: pointer;
-    background: var(--verde);
-    color: var(--negro);
-}
 .valido{
     color: var(--verde);
 }

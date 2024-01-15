@@ -1,0 +1,29 @@
+<div>
+    <form>
+        <div>
+            <label for="nombre">Nombre completo:</label><br>
+            <input type="text" id="nombre" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div>
+            <label for="ci">Número de carnet de identidad:</label><br>
+            <input type="number" id="ci" [(ngModel)]="ci" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div>
+            <label for="correo">Correo:</label><br>
+            <input type="email" id="correo" [(ngModel)]="correo" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div>
+            <label for="telefono">Teléfono:</label><br>
+            <input type="number" id="telefono" [(ngModel)]="telefono" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div>
+            <label for="pdf">Fotocopia de CI:</label><br>
+            <input type="file" id="pdf" accept=".pdf" [(ngModel)]="pdf" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div>
+            <label for="password0">Contraseña:</label><br>
+            <input type="password" id="password0" [(ngModel)]="password0" [ngModelOptions]="{standalone: true}">
+        </div>
+    </form>
+    <button (click)="registrarse()" class="boton">Registrarse</button>
+</div>
