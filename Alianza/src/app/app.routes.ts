@@ -6,6 +6,7 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { ProductosDetalleComponent } from './productos-detalle/productos-detalle.component';
 import { Error404Component } from './error404/error404.component';
 import { AccesoComponent } from './acceso/acceso.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path: 'contacto', component: ContactoComponent},
     {path: 'productos/:titulo', component: ProductosDetalleComponent},
     {path: 'acceso', component: AccesoComponent},
+    {path: 'mi-perfil', component: PerfilComponent},
     {path: '**', component: Error404Component}
 ];

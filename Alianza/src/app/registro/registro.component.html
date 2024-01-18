@@ -1,29 +1,34 @@
 <div>
-    <form>
+    @if(usuarioinvalido){
+        @for (error of errores; track error){
+            <div class="error">{{error}}</div>
+        }
+    }
+    <form [formGroup]="registroForm" (ngSubmit)="enviarregistro()">
         <div>
             <label for="nombre">Nombre completo:</label><br>
-            <input type="text" id="nombre" [(ngModel)]="nombre" [ngModelOptions]="{standalone: true}">
+            <input type="text" id="nombre" formControlName="nombre">
         </div>
         <div>
-            <label for="ci">Número de carnet de identidad:</label><br>
-            <input type="number" id="ci" [(ngModel)]="ci" [ngModelOptions]="{standalone: true}">
+            <label for="ci">Carnet de identidad:</label><br>
+            <input type="number" id="ci" formControlName="ci">
         </div>
         <div>
             <label for="correo">Correo:</label><br>
-            <input type="email" id="correo" [(ngModel)]="correo" [ngModelOptions]="{standalone: true}">
+            <input type="email" id="correo" formControlName="correo">
         </div>
         <div>
             <label for="telefono">Teléfono:</label><br>
-            <input type="number" id="telefono" [(ngModel)]="telefono" [ngModelOptions]="{standalone: true}">
+            <input type="number" id="telefono" formControlName="telefono">
         </div>
         <div>
             <label for="pdf">Fotocopia de CI:</label><br>
-            <input type="file" id="pdf" accept=".pdf" [(ngModel)]="pdf" [ngModelOptions]="{standalone: true}">
+            <input type="file" id="pdf" accept=".pdf" formControlName="fotocopia">
         </div>
         <div>
             <label for="password0">Contraseña:</label><br>
-            <input type="password" id="password0" [(ngModel)]="password0" [ngModelOptions]="{standalone: true}">
+            <input type="password" id="password0" formControlName="password">
         </div>
+        <button type="submit" class="boton">Registrarse</button>
     </form>
-    <button (click)="registrarse()" class="boton">Registrarse</button>
 </div>

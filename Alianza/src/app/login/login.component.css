@@ -2,5 +2,11 @@ form{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    
+}
+.error{
+    color: var(--rojo);
+}
+button{
+    margin-top: 10px;
 }

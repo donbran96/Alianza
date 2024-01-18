@@ -4,3 +4,9 @@ form{
     justify-content: center;
     
 }
+.error{
+    color: var(--rojo);
+}
+button{
+    margin-top: 10px;
+}
