@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators } 
 })
 export class RegistroComponent {
   usuarioinvalido:boolean=false;
-  errores:string[]=[];
+  arrayerrores: { [key: string]: string } = {};
   registroForm:FormGroup=new FormGroup({
     nombre: new FormControl('', [Validators.required]),
     ci: new FormControl('', Validators.required),
@@ -23,30 +23,30 @@ export class RegistroComponent {
 
   enviarregistro(){
     const correoControl = this.registroForm.get('correo');
-    this.errores = [];
+    this.arrayerrores={};
     if (this.registroForm.valid) {
       //this.router.navigate(['/mi-perfil']);
     } else {
       if(this.registroForm.value.nombre==''){
-        this.errores.push('Ingrese su Nombre completo');
+        this.arrayerrores['nombre']='Ingrese su Nombre completo';
       }
       if(this.registroForm.value.ci==''){
-        this.errores.push('Ingrese su Carnet de identidad');
+        this.arrayerrores['ci']='Ingrese su Carnet de identidad';
       }
       if(this.registroForm.value.correo==''){
-        this.errores.push('Ingrese su Correo Electrónico');
+        this.arrayerrores['correovacio']='Ingrese su Correo Electrónico';
       }
       if (correoControl && correoControl.invalid && correoControl.hasError('email')) {
-        this.errores.push('Correo electrónico inválido');
+        this.arrayerrores['correoinvalido']='Correo electrónico inválido';
       }
       if(this.registroForm.value.telefono==''){
-        this.errores.push('Ingrese su Teléfono');
+        this.arrayerrores['telefono']='Ingrese su Teléfono';
       }
       if(this.registroForm.value.fotocopia==''){
-        this.errores.push('Ingrese su Fotocopia de Carnet de Identidad');
+        this.arrayerrores['fotocopia']='Ingrese su Fotocopia de Carnet de Identidad';
       }
       if(this.registroForm.value.password==''){
-        this.errores.push('Ingrese su Contraseña');
+        this.arrayerrores['password']='Ingrese su contraseña';
       }
       this.usuarioinvalido=true;
     }

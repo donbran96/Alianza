@@ -1,33 +1,48 @@
 <div>
-    @if(usuarioinvalido){
-        @for (error of errores; track error){
-            <div class="error">{{error}}</div>
-        }
-    }
     <form [formGroup]="registroForm" (ngSubmit)="enviarregistro()">
         <div>
             <label for="nombre">Nombre completo:</label><br>
             <input type="text" id="nombre" formControlName="nombre">
+            @if(usuarioinvalido&& arrayerrores['nombre']){
+                <div class="error">{{arrayerrores['nombre']}}</div>
+            }
         </div>
         <div>
             <label for="ci">Carnet de identidad:</label><br>
             <input type="number" id="ci" formControlName="ci">
+            @if(usuarioinvalido&& arrayerrores['ci']){
+                <div class="error">{{arrayerrores['ci']}}</div>
+            }
         </div>
         <div>
             <label for="correo">Correo:</label><br>
             <input type="email" id="correo" formControlName="correo">
+            @if(usuarioinvalido&& arrayerrores['correovacio']){
+                <div class="error">{{arrayerrores['correovacio']}}</div>
+            }@if(usuarioinvalido&& arrayerrores['correoinvalido']){
+                <div class="error">{{arrayerrores['correoinvalido']}}</div>
+            }
         </div>
         <div>
             <label for="telefono">Teléfono:</label><br>
             <input type="number" id="telefono" formControlName="telefono">
+            @if(usuarioinvalido&& arrayerrores['telefono']){
+                <div class="error">{{arrayerrores['telefono']}}</div>
+            }
         </div>
         <div>
             <label for="pdf">Fotocopia de CI:</label><br>
             <input type="file" id="pdf" accept=".pdf" formControlName="fotocopia">
+            @if(usuarioinvalido&& arrayerrores['fotocopia']){
+                <div class="error">{{arrayerrores['fotocopia']}}</div>
+            }
         </div>
         <div>
             <label for="password0">Contraseña:</label><br>
             <input type="password" id="password0" formControlName="password">
+            @if(usuarioinvalido&& arrayerrores['password']){
+                <div class="error">{{arrayerrores['password']}}</div>
+            }
         </div>
         <button type="submit" class="boton">Registrarse</button>
     </form>

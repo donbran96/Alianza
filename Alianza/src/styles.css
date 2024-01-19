@@ -52,3 +52,9 @@
     background: var(--verde);
     color: var(--negro);
 }
+.ng-valid:not(form).ng-touched{
+    border: 1px solid var(--verde);
+}
+.ng-invalid:not(form).ng-touched{
+    border: 1px solid var(--rojo);
+}

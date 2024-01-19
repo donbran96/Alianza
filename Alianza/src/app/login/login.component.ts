@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   usuarioinvalido:boolean=false;
-  errores:string[]=[];
+  arrayerrores: { [key: string]: string } = {};
   loginForm:FormGroup=new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email]), 
     password: new FormControl('', Validators.required)
@@ -22,18 +22,18 @@ export class LoginComponent {
 
   enviarlogin(){
     const correoControl = this.loginForm.get('correo');
-    this.errores = [];
+    this.arrayerrores={};
     if (this.loginForm.valid) {
       this.router.navigate(['/mi-perfil']);
     } else {
       if(this.loginForm.value.correo==''){
-        this.errores.push('Ingrese su Correo Electrónico');
+        this.arrayerrores['correovacio']='Ingrese su Correo Electrónico';
       }
       if (correoControl && correoControl.invalid && correoControl.hasError('email')) {
-        this.errores.push('Correo electrónico inválido');
+        this.arrayerrores['correoinvalido']='Correo electrónico inválido';
       }
       if(this.loginForm.value.password==''){
-        this.errores.push('Ingrese su Contraseña');
+        this.arrayerrores['password']='Ingrese su Contraseña';
       }
       this.usuarioinvalido=true;
     }
