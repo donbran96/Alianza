@@ -17,3 +17,24 @@
     text-decoration: underline;
     margin-bottom: 10px;
 }
+.columna-1{
+    margin-right: 5px;
+}
+.columna-2{
+    margin-left: 5px;
+}
+@media screen and (max-width: 767px) {
+    .columnas{
+        flex-direction: column;
+    }
+    .columnas .columna{
+        width: 100%;
+    }
+    .columna-1, .columna-2{
+        margin-right: 0;
+        margin-left: 0;
+    }
+    .columna-1{
+        margin-bottom: 10px;
+    }
+}

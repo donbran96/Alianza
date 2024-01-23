@@ -1,12 +1,12 @@
 <div class="contenedor margin-vertical columnas">
     @if(conectado){
         @if(editar){
-            <div class="columna">
+            <div class="columna columna-1">
                 <p class="subrayado">Editando Datos de Usuario</p>
                 <button (click)="activaredicion(false)" class="boton">Guardar Datos</button>
             </div>
         }@else{
-            <div class="columna">
+            <div class="columna columna-1">
                 <p class="subrayado">Usuario conectado</p>
                 <p>Id: {{userData?.id}}</p>
                 <p>Nombre: {{userData?.nombre}}</p>
@@ -16,7 +16,7 @@
                 <button (click)="activaredicion(true)" class="boton">Editar Datos</button>
             </div>
         }
-        <div class="columna">
+        <div class="columna columna-2">
             <p class="subrayado">Subastas en las que estás participando:</p>
             @for(subasta of subastas; track subasta){
                 <p>{{subasta}}</p>
