@@ -4,6 +4,9 @@ form{
     justify-content: center;
     
 }
+form input{
+    width: 100%;
+}
 .error{
     color: var(--rojo);
 }

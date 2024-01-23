@@ -1,0 +1,19 @@
+.centrar{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+.columnas{
+    display: flex;
+}
+.columnas .columna{
+    width: 50%;
+    border: 1px solid var(--negro);
+    padding: 10px;
+}
+.subrayado{
+    text-decoration: underline;
+    margin-bottom: 10px;
+}

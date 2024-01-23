@@ -1,3 +1,31 @@
-<div class="contenedor margin-vertical">
-    <p>asfs</p>
+<div class="contenedor margin-vertical columnas">
+    @if(conectado){
+        @if(editar){
+            <div class="columna">
+                <p class="subrayado">Editando Datos de Usuario</p>
+                <button (click)="activaredicion(false)" class="boton">Guardar Datos</button>
+            </div>
+        }@else{
+            <div class="columna">
+                <p class="subrayado">Usuario conectado</p>
+                <p>Id: {{userData?.id}}</p>
+                <p>Nombre: {{userData?.nombre}}</p>
+                <p>Carnet de Identidad: {{userData?.ci}}</p>
+                <p>Correo Electrónico: {{userData?.correo}}</p>
+                <p>Teléfono: {{userData?.telefono}}</p>
+                <button (click)="activaredicion(true)" class="boton">Editar Datos</button>
+            </div>
+        }
+        <div class="columna">
+            <p class="subrayado">Subastas en las que estás participando:</p>
+            @for(subasta of subastas; track subasta){
+                <p>{{subasta}}</p>
+            }
+        </div>
+    }@else{
+        <div class="centrar">
+            <p>No está conectado, vaya a Iniciar Sesión:</p>
+            <button class="boton" routerLink="/acceso">Inicie Sesión</button>
+        </div>
+    }
 </div>
