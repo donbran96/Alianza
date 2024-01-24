@@ -14,14 +14,15 @@ import { FormsModule } from '@angular/forms';
 export class ProductosDetalleComponent implements OnInit {
   @Input('titulo') titulo='';
   productosService:ProductosService=inject(ProductosService);
-  productos:Productos[]=this.productosService.getProductos();
-  nombre:string='';
+  productos:Productos[]=[];
+  producto?:Productos;
+  nombre:number=0;
   puja_actual:number=0;
-  categorias:[]=[];
+  categorias:string[]=[];
   fecha_fin:Date=new Date();
   fecha:string='';
   aumento:number=0;
-  imagenes:[]=[];
+  imagenes:string[]=[];
   productoEncontrado:any;
   imagengrande:any;
   activo:boolean[]=[true];
@@ -38,23 +39,33 @@ export class ProductosDetalleComponent implements OnInit {
   anio:number=0;
   placa:string='';
   ngOnInit(){
-    this.nombre=this.titulo;
-    this.productoEncontrado = this.productos.find(producto => producto.titulo === this.nombre);
-    this.puja_actual=this.productoEncontrado['puja_actual'];
-    this.categorias=this.productoEncontrado['categorias'];
-    this.fecha_fin=this.productoEncontrado['fecha_fin'];
-    this.fecha=this.formatearFecha(this.fecha_fin);
-    this.aumento=this.productoEncontrado['aumento'];
-    this.imagenes=this.productoEncontrado['imagenes'];
-    this.imagengrande=this.productoEncontrado['imagenes'][0];
-    this.puja_aumento=this.puja_actual+this.aumento;
-    this.puja=this.puja_aumento;
-    this.tipo=this.productoEncontrado['tipo'];
-    this.marca=this.productoEncontrado['marca'];
-    this.modelo=this.productoEncontrado['modelo'];
-    this.color=this.productoEncontrado['color'];
-    this.anio=this.productoEncontrado['anio'];
-    this.placa=this.productoEncontrado['placa'];
+    this.nombre = parseInt(this.titulo, 10);
+    this.productosService.getProductoById(this.nombre).subscribe({
+        next:(productoData)=>{
+          this.producto=productoData;
+          this.puja_actual=this.producto['puja_actual'];
+          this.categorias=this.producto['categorias'];
+          this.fecha_fin=this.producto['fecha_fin'];
+          //this.fecha=this.formatearFecha(this.fecha_fin);
+          this.aumento=this.producto['aumento'];
+          this.imagenes=this.producto['imagenes'];
+          this.imagengrande=this.producto['imagenes'][0];
+          this.puja_aumento=this.puja_actual+this.aumento;
+          this.puja=this.puja_aumento;
+          this.tipo=this.producto['tipo'];
+          this.marca=this.producto['marca'];
+          this.modelo=this.producto['modelo'];
+          this.color=this.producto['color'];
+          this.anio=this.producto['anio'];
+          this.placa=this.producto['placa'];
+        },
+        error:(errorData)=>{
+          console.error(errorData);
+        },
+        complete:()=>{
+          console.info('Producto obtenido');
+        }
+      });
   }
   formatearFecha(fecha_fin:Date):string{
     const dia=fecha_fin.getDate();

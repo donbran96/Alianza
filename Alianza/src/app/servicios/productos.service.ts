@@ -1,98 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Productos } from '../interfaces/productos';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, filter, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
-  productos:Productos[]=[
-    {
-      imagenes: ['https://img.freepik.com/fotos-premium/cadaver-coche-estrellado-seguro-automovil_99974-652.jpg', 'https://siempreauto.com/wp-content/uploads/sites/9/2021/10/Auto-chocado.jpg', 'https://c8.alamy.com/compes/kr4jfd/diciembre-de-2017-el-arbol-1-0-coches-coche-viejo-verde-danado-cuando-se-topo-con-un-arbol-kr4jfd.jpg'],
-      titulo: 'Producto 1',
-      puja_actual: 3000,
-      categorias: ['Subastas', 'Vehículos'],
-      fecha_fin: new Date('2023-12-31T23:59:59'),
-      aumento: 10,
-      tipo: 'Camioneta',
-      marca: 'Toyota',
-      modelo: 'Hilux',
-      color: 'Blanco',
-      anio: 2014,
-      placa: '4786GYD'
-    },
-    {
-      imagenes: ['https://img.freepik.com/fotos-premium/cadaver-coche-estrellado-seguro-automovil_99974-652.jpg', 'https://siempreauto.com/wp-content/uploads/sites/9/2021/10/Auto-chocado.jpg', 'https://c8.alamy.com/compes/kr4jfd/diciembre-de-2017-el-arbol-1-0-coches-coche-viejo-verde-danado-cuando-se-topo-con-un-arbol-kr4jfd.jpg'],
-      titulo: 'Producto 2',
-      puja_actual: 2500,
-      categorias: ['Subastas', 'Vehículos'],
-      fecha_fin: new Date('2023-12-31T23:59:59'),
-      aumento: 10,
-      tipo: 'Vagoneta',
-      marca: 'Suzuki',
-      modelo: 'Vitara',
-      color: 'Gris',
-      anio: 2018,
-      placa: '5814TLA'
-    },
-    {
-      imagenes: ['https://img.freepik.com/fotos-premium/cadaver-coche-estrellado-seguro-automovil_99974-652.jpg', 'https://siempreauto.com/wp-content/uploads/sites/9/2021/10/Auto-chocado.jpg', 'https://c8.alamy.com/compes/kr4jfd/diciembre-de-2017-el-arbol-1-0-coches-coche-viejo-verde-danado-cuando-se-topo-con-un-arbol-kr4jfd.jpg'],
-      titulo: 'Producto 3',
-      puja_actual: 2800,
-      categorias: ['Subastas', 'Vehículos'],
-      fecha_fin: new Date('2023-12-31T23:59:59'),
-      aumento: 10,
-      tipo: 'Jeep',
-      marca: 'Lada',
-      modelo: 'Niva',
-      color: 'Azul',
-      anio: 2019,
-      placa: '5412ERD'
-    },
-    {
-      imagenes: ['https://img.freepik.com/fotos-premium/cadaver-coche-estrellado-seguro-automovil_99974-652.jpg', 'https://siempreauto.com/wp-content/uploads/sites/9/2021/10/Auto-chocado.jpg', 'https://c8.alamy.com/compes/kr4jfd/diciembre-de-2017-el-arbol-1-0-coches-coche-viejo-verde-danado-cuando-se-topo-con-un-arbol-kr4jfd.jpg'],
-      titulo: 'Producto 4',
-      puja_actual: 3700,
-      categorias: ['Subastas', 'Vehículos'],
-      fecha_fin: new Date('2023-12-31T23:59:59'),
-      aumento: 10,
-      tipo: 'Auto',
-      marca: 'Suzuki',
-      modelo: 'Alto',
-      color: 'Rojo',
-      anio: 2021,
-      placa: '5978JOF'
-    },
-    {
-      imagenes: ['https://img.freepik.com/fotos-premium/cadaver-coche-estrellado-seguro-automovil_99974-652.jpg', 'https://siempreauto.com/wp-content/uploads/sites/9/2021/10/Auto-chocado.jpg', 'https://c8.alamy.com/compes/kr4jfd/diciembre-de-2017-el-arbol-1-0-coches-coche-viejo-verde-danado-cuando-se-topo-con-un-arbol-kr4jfd.jpg'],
-      titulo: 'Producto 5',
-      puja_actual: 4000,
-      categorias: ['Subastas', 'Vehículos'],
-      fecha_fin: new Date('2023-12-31T23:59:59'),
-      aumento: 10,
-      tipo: 'Camioneta',
-      marca: 'Nissan',
-      modelo: 'Frontier',
-      color: 'Verde',
-      anio: 2012,
-      placa: '3657VBR'
-    },
-    {
-      imagenes: ['https://img.freepik.com/fotos-premium/cadaver-coche-estrellado-seguro-automovil_99974-652.jpg', 'https://siempreauto.com/wp-content/uploads/sites/9/2021/10/Auto-chocado.jpg', 'https://c8.alamy.com/compes/kr4jfd/diciembre-de-2017-el-arbol-1-0-coches-coche-viejo-verde-danado-cuando-se-topo-con-un-arbol-kr4jfd.jpg'],
-      titulo: 'Producto 6',
-      puja_actual: 1500,
-      categorias: ['Subastas', 'Vehículos'],
-      fecha_fin: new Date('2023-12-31T23:59:59'),
-      aumento: 10,
-      tipo: 'Vagoneta',
-      marca: 'Mitsubishi',
-      modelo: 'Montero',
-      color: 'Negro',
-      anio: 2010,
-      placa: '3021GTR'
+  constructor(private http:HttpClient) { 
+    
+  }
+  getProductos():Observable<Productos[]>{
+    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
+      
+      catchError(this.handleError)
+    );
+  }
+  getProductoById(id: number): Observable<Productos> {
+    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
+      catchError(this.handleError),
+      filter((productos: any) => !!productos),
+      // Filtra la lista para encontrar el producto con el ID proporcionado
+      map(productos => productos.find((producto: { id: number; }) => producto.id === id))
+    );
+  }
+
+
+  private handleError(error:HttpErrorResponse){
+    if(error.status===0){
+      console.error('Se ha producido un error', error.error);
+    } else {
+      console.error('Backend retornó el código de estado ',error.status,error.error);
     }
-  ];
-  constructor() { }
-  getProductos():Productos[]{
-    return this.productos;
+    return throwError(()=> new Error('Algo falló. Por favor intente nuevamente.'));
   }
 }

@@ -1,4 +1,5 @@
 export interface Productos {
+    id:number;
     imagenes: string[];
     titulo: string;
     puja_actual: number;

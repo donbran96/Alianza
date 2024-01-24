@@ -5,4 +5,5 @@ export interface Usuario {
     ci:number;
     correo:string;
     telefono:number;
+    subastas: number[];
 }

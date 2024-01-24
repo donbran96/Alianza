@@ -19,8 +19,12 @@
         <div class="columna columna-2">
             <p class="subrayado">Subastas en las que estás participando:</p>
             @for(subasta of subastas; track subasta){
-                <p>{{subasta}}</p>
+                
+                <a [routerLink]="'/productos/'+subasta">Producto con el ID: {{subasta}}</a><br>
             }
+        </div>
+        <div class="centrar">
+            <button class="boton" (click)="logout()">Cerrar Sesión</button>
         </div>
     }@else{
         <div class="centrar">

@@ -11,13 +11,21 @@ import { Productos } from '../interfaces/productos';
   styleUrl: './productos.component.css'
 })
 export class ProductosComponent {
-  
-
- /* mostrarproductos(){
-    this.productos.forEach(producto => {
-      console.log(producto);
-    });
-  }*/ 
   productosService:ProductosService=inject(ProductosService);
-  productos:Productos[]=this.productosService.getProductos();
+  productos:Productos[]=[];
+ 
+  ngOnInit(){
+    this.productosService.getProductos().subscribe({
+      next:(productosData)=>{
+        this.productos=productosData;
+      },
+      error:(errorData)=>{
+        console.error(errorData);
+      },
+      complete:()=>{
+        console.info('Productos obtenidos');
+      }
+    });
+  }
+ 
 }
