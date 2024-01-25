@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, throwError, BehaviorSubject, tap } from 'rxjs';
+import { Observable, catchError, throwError, BehaviorSubject, tap, map } from 'rxjs';
 import { LoginRequest } from '../interfaces/login-request';
 import { environment } from '../../environments/environment';
+import { UsuarioUpdate } from '../interfaces/usuario-update';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,14 @@ import { environment } from '../../environments/environment';
 export class UsuarioService {
   usuarioConectado:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
   usuarioDatos:BehaviorSubject<Usuario>=new BehaviorSubject<Usuario>({mensaje:'',id:'',nombre:'',ci:0,correo:'',telefono:0,subastas:[]});
-  constructor(private http:HttpClient) {
-    this.usuarioConectado=new BehaviorSubject<boolean>(sessionStorage.getItem("usuario")!=null);
-    this.usuarioDatos=new BehaviorSubject<Usuario>(JSON.parse(sessionStorage.getItem("usuario")||'{}'));
+  constructor(private http: HttpClient) {
+    // Verificar si sessionStorage está disponible antes de utilizarlo
+    if (typeof sessionStorage !== 'undefined') {
+      this.usuarioConectado = new BehaviorSubject<boolean>(sessionStorage.getItem("usuario") != null);
+      this.usuarioDatos = new BehaviorSubject<Usuario>(JSON.parse(sessionStorage.getItem("usuario") || '{}'));
+    }
   }
+  
   login(credenciales:LoginRequest):Observable<Usuario>{
     return this.http.get<Usuario>(environment.urlApi).pipe(
       tap((userData:Usuario)=>{
@@ -29,6 +34,12 @@ export class UsuarioService {
   logout(){
     sessionStorage.removeItem("usuario");
     this.usuarioConectado.next(false);
+  }
+  usuarioUpdate(userData:UsuarioUpdate):Observable<any>{
+    return this.http.get<any>('http://localhost:4200/assets/data-usuarioupdate.json').pipe(
+      catchError(this.handleError),
+      map(respuesta=>respuesta.respuesta)
+    )
   }
   private handleError(error:HttpErrorResponse){
     if(error.status===0){

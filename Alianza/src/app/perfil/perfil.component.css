@@ -23,6 +23,27 @@
 .columna-2{
     margin-left: 5px;
 }
+.margen-arriba{
+    margin-top: 20px;
+}
+.botones{
+    display: flex;
+}
+.botones button:nth-child(2){
+    margin-left: 20px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+form input{
+    width: 100%;
+}
+.error{
+    color: var(--rojo);
+}
 @media screen and (max-width: 767px) {
     .columnas{
         flex-direction: column;

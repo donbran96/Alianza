@@ -28,10 +28,8 @@ export class AccesoComponent {
   }
   registro(){
     this.registrarse=true;
-    console.log(this.registrarse);
   }
   login(){
     this.registrarse=false;
-    console.log(this.registrarse);
   }
 }

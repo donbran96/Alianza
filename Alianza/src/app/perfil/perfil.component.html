@@ -1,29 +1,67 @@
-<div class="contenedor margin-vertical columnas">
+<div class="contenedor margin-vertical">
     @if(conectado){
-        @if(editar){
-            <div class="columna columna-1">
-                <p class="subrayado">Editando Datos de Usuario</p>
-                <button (click)="activaredicion(false)" class="boton">Guardar Datos</button>
-            </div>
-        }@else{
-            <div class="columna columna-1">
-                <p class="subrayado">Usuario conectado</p>
-                <p>Id: {{userData?.id}}</p>
-                <p>Nombre: {{userData?.nombre}}</p>
-                <p>Carnet de Identidad: {{userData?.ci}}</p>
-                <p>Correo Electrónico: {{userData?.correo}}</p>
-                <p>Teléfono: {{userData?.telefono}}</p>
-                <button (click)="activaredicion(true)" class="boton">Editar Datos</button>
-            </div>
-        }
-        <div class="columna columna-2">
-            <p class="subrayado">Subastas en las que estás participando:</p>
-            @for(subasta of subastas; track subasta){
-                
-                <a [routerLink]="'/productos/'+subasta">Producto con el ID: {{subasta}}</a><br>
+        <div class="columnas">
+            @if(editar){
+                <div class="columna columna-1">
+                    <p class="subrayado">Editando Datos de Usuario</p>
+                    <div class="error">{{updateError}}</div>
+                    <form [formGroup]="edicionForm" (ngSubmit)="actualizarUsuario()">
+                        <div>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" formControlName="nombre">
+                            @if(usuarioinvalido&& arrayerrores['nombre']){
+                                <div class="error">{{arrayerrores['nombre']}}</div>
+                            }
+                        </div>
+                        <div>
+                            <label for="ci">Carnet de Identidad:</label>
+                            <input type="number" id="ci" formControlName="ci">
+                            @if(usuarioinvalido&& arrayerrores['ci']){
+                                <div class="error">{{arrayerrores['ci']}}</div>
+                            }
+                        </div>
+                        <div>
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" id="correo" formControlName="correo">
+                            @if(usuarioinvalido&& arrayerrores['correovacio']){
+                                <div class="error">{{arrayerrores['correovacio']}}</div>
+                            }@if(usuarioinvalido&& arrayerrores['correoinvalido']){
+                                <div class="error">{{arrayerrores['correoinvalido']}}</div>
+                            }
+                        </div>
+                        <div>
+                            <label for="telefono">Teléfono:</label>
+                            <input type="number" id="telefono" formControlName="telefono">
+                            @if(usuarioinvalido&& arrayerrores['telefono']){
+                                <div class="error">{{arrayerrores['telefono']}}</div>
+                            }
+                        </div>
+                        <div class="botones">
+                            <button type="submit" class="boton margen-arriba">Guardar Datos</button>
+                            <button (click)="cancelaredicion()" class="boton margen-arriba">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            }@else{
+                <div class="columna columna-1">
+                    <p class="subrayado">Usuario conectado</p>
+                    <p>Id: {{userData?.id}}</p>
+                    <p>Nombre: {{userData?.nombre}}</p>
+                    <p>Carnet de Identidad: {{userData?.ci}}</p>
+                    <p>Correo Electrónico: {{userData?.correo}}</p>
+                    <p>Teléfono: {{userData?.telefono}}</p>
+                    <button (click)="activaredicion(true)" class="boton margen-arriba">Editar Datos</button>
+                    <div class="error margen-arriba">{{actualizado}}</div>
+                </div>
             }
+            <div class="columna columna-2">
+                <p class="subrayado">Subastas en las que estás participando:</p>
+                @for(producto of productosSubastas; track producto){
+                    <a [routerLink]="'/productos/'+producto.id">{{producto.marca}} {{producto.modelo}} {{producto.anio}} - {{producto.tipo}} - {{producto.placa}}</a><br>
+                }
+            </div>
         </div>
-        <div class="centrar">
+        <div class="centrar margen-arriba">
             <button class="boton" (click)="logout()">Cerrar Sesión</button>
         </div>
     }@else{

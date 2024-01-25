@@ -12,7 +12,7 @@
         </div>
         <div>
             <label for="password">Contraseña:</label><br>
-            <input type="password" formControlName="password">
+            <input type="password" formControlName="password" id="password">
             @if(usuarioinvalido&& arrayerrores['password']){
                 <div class="error">{{arrayerrores['password']}}</div>
             }

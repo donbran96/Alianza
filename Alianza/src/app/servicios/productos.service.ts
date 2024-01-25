@@ -24,6 +24,14 @@ export class ProductosService {
       map(productos => productos.find((producto: { id: number; }) => producto.id === id))
     );
   }
+  getProductosById(array_id: number[]): Observable<Productos[]> {
+    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
+      catchError(this.handleError),
+      filter((productos: Productos[]) => !!productos),
+      // Filtra la lista para encontrar los productos con los ID proporcionados
+      map((productos: Productos[]) => productos.filter(producto => array_id.includes(producto.id)))
+    );
+  }
 
 
   private handleError(error:HttpErrorResponse){
