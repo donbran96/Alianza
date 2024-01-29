@@ -16,8 +16,17 @@
             <li>
                 <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">INICIO</a>
             </li>
-            <li>
-                <a routerLink="/productos" routerLinkActive="active">SUBASTAS</a>
+            <li (mouseover)="mostrarSubmenu(true)" (mouseleave)="mostrarSubmenu(false)">
+                <a routerLink="/productos" routerLinkActive="active" [ngClass]="{ 'active' : mantenerHover}">SUBASTAS</a>
+                @if(submenu){
+                    <ul class="submenu" (mouseover)="activarHover(true)" (mouseleave)="activarHover(false)">
+                        @for (categoria of categorias; track categoria) {
+                            <li>
+                                <a [routerLink]="'productos/categoria/'+categoria" routerLinkActive="active2">{{categoria}}</a>
+                            </li>
+                        }
+                    </ul>
+                }
             </li>
             <li>
                 <a routerLink="/nosotros" routerLinkActive="active">QUIENES SOMOS</a>

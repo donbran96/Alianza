@@ -18,7 +18,7 @@ export class ProductosDetalleComponent implements OnInit {
   producto?:Productos;
   nombre:number=0;
   puja_actual:number=0;
-  categorias:string[]=[];
+  categorias:string="";
   fecha_fin:Date=new Date();
   fecha:string='';
   aumento:number=0;
@@ -44,7 +44,7 @@ export class ProductosDetalleComponent implements OnInit {
         next:(productoData)=>{
           this.producto=productoData;
           this.puja_actual=this.producto['puja_actual'];
-          this.categorias=this.producto['categorias'];
+          this.categorias=this.producto['categoria'];
           this.fecha_fin=this.producto['fecha_fin'];
           //this.fecha=this.formatearFecha(this.fecha_fin);
           this.aumento=this.producto['aumento'];

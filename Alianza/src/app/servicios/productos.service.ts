@@ -16,6 +16,15 @@ export class ProductosService {
       catchError(this.handleError)
     );
   }
+  getProductosByCategory(categoria:string):Observable<Productos[]>{
+    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
+      
+      catchError(this.handleError),
+      filter((productos: Productos[]) => !!productos),
+      // Filtra la lista para encontrar los productos con los ID proporcionados
+      map((productos: Productos[]) => productos.filter(producto => categoria.includes(producto.categoria)))
+    );
+  }
   getProductoById(id: number): Observable<Productos> {
     return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
       catchError(this.handleError),

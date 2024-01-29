@@ -7,6 +7,7 @@ import { ProductosDetalleComponent } from './productos-detalle/productos-detalle
 import { Error404Component } from './error404/error404.component';
 import { AccesoComponent } from './acceso/acceso.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { ProductosCategorizadoComponent } from './productos-categorizado/productos-categorizado.component';
 
 export const routes: Routes = [
     {path: '', component: InicioComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path: 'nosotros', component: QuienesSomosComponent},
     {path: 'contacto', component: ContactoComponent},
     {path: 'productos/:titulo', component: ProductosDetalleComponent},
+    {path: 'productos/categoria/:categoria', component:ProductosCategorizadoComponent},
     {path: 'acceso', component: AccesoComponent},
     {path: 'mi-perfil', component: PerfilComponent},
     {path: '**', component: Error404Component}

@@ -42,3 +42,23 @@ div.fila-2 ul li a:hover{
     background: var(--azul);
     color: var(--blanco) !important;
 }
+.active2{
+    background: var(--verde)
+}
+.submenu{
+    display: flex;
+    flex-direction: column;
+    background: var(--azul);
+    position: absolute;
+    z-index: 999;
+}
+.submenu a{
+    width: 100%;
+    border: 1px solid var(--azul);
+    color: var(--blanco) !important;
+    border-top: 1px solid var(--blanco);
+}
+.submenu a:hover{
+    background: var(--verde) !important;
+    border: 1px solid var(--azul) !important;
+}

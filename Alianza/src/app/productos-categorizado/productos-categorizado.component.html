@@ -1,0 +1,41 @@
+<div class="contenedor">
+    <div class="productos margin-vertical">
+        <div class="categoria">Categoría actual: {{categoria}}</div>
+        <ul class="grid-productos">
+            @for(producto of productos; track producto.titulo){
+              <li>
+                <!--<div class="imagenes">
+                    @for (imagen of producto.imagenes; track imagen) {
+                        <img src="{{imagen}}" alt="">                
+                    }
+                </div>-->
+                <div class="imagen"><img src="{{producto.imagenes[0]}}" alt=""></div>
+                <div class="tipo">Tipo: {{producto.tipo}}</div>
+                <div class="marca">Marca: {{producto.marca}}</div>
+                <div class="modelo">Modelo: {{producto.modelo}}</div>
+                <div class="color">Color: {{producto.color}}</div>
+                <div class="año">Año: {{producto.anio}}</div>
+                <div class="placa">Placa: {{producto.placa}}</div>
+                <!--<div class="categorias"><span>Categorías: </span>
+                    @for(categoria of producto.categorias; track $index){
+                        <span>{{categoria}}</span>
+                        @if (producto.categorias.length-1!=$index) {
+                            <span>, </span>
+                        }
+                    }
+                </div>-->
+                <div class="boton" [routerLink]="'/productos/' + producto.id">
+                    Pujar
+
+                </div>
+              </li>
+            }
+        </ul>
+        @if(productos.length==0){
+            <div>
+                No existen productos
+            </div>
+        }
+        <!--<button (click)="mostrarproductos()">Mostrar productos en consola</button>-->
+    </div>
+</div>
