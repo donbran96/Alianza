@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "Automotor"
+    },
+    {
+        "id": 2,
+        "name": "Maquinaria"
+    },
+    {
+        "id": 3,
+        "name": "Equipos Electronicos"
+    },
+    {
+        "id": 4,
+        "name": "Linea Blanca"
+    },
+    {
+        "id": 5,
+        "name": "Muebles"
+    },
+    {
+        "id": 6,
+        "name": "Materiales en deshuso chatarra"
+    },
+    {
+        "id": 7,
+        "name": "Repuestos y partes"
+    },
+    {
+        "id": 8,
+        "name": "Otros"
+    }
+]

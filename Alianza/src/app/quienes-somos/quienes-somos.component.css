@@ -18,7 +18,7 @@ div.nosotros div.caja-2{
     grid-template-columns: 1fr 1fr;
     grid-gap: 50px;
 }
-div.caja-1 h3{
+    div.caja-1 h3{
     font-size: 48px;
     margin-bottom: 20px;
     text-align: center;
@@ -82,3 +82,5 @@ div.nosotros div.caja-2 div{
         grid-template-columns: 1fr;
     }
 }
+
+/*-----------------------------*/

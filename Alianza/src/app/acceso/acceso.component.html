@@ -1,11 +1,19 @@
 <div class="contenedor centrar margin-vertical">
-    @if(registrarse){
-        <app-registro></app-registro>
-        <p class="margin-arriba">También puedes iniciar sesión:</p>       
-        <button (click)="login()" class="boton ">Iniciar Sesión</button>
-    }@else{
-        <app-login></app-login>
-        <p class="margin-arriba">También puedes registrarte:</p>
-        <button (click)="registro()" class="boton">Registrarse</button>
-    }
+  @if(registrarse){
+  <app-registro></app-registro>
+  <button
+    (click)="login()"
+    class="block rounded-lg bg-blue-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-700 focus-visible:ring active:bg-blue-600 md:text-base"
+  >
+    Iniciar Sesion
+  </button>
+  }@else{
+  <app-login> </app-login>
+  <button
+    (click)="registro()"
+    class="block rounded-lg bg-blue-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-700 focus-visible:ring active:bg-blue-600 md:text-base"
+  >
+    Registrarse
+  </button>
+  }
 </div>

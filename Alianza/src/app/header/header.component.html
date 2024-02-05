@@ -17,7 +17,7 @@
                 <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">INICIO</a>
             </li>
             <li (mouseover)="mostrarSubmenu(true)" (mouseleave)="mostrarSubmenu(false)">
-                <a routerLink="/productos" routerLinkActive="active" [ngClass]="{ 'active' : mantenerHover}">SUBASTAS</a>
+                <a routerLink="/productos/categoria/todos" routerLinkActive="active" [ngClass]="{ 'active' : mantenerHover}">SUBASTAS</a>
                 @if(submenu){
                     <ul class="submenu" (mouseover)="activarHover(true)" (mouseleave)="activarHover(false)">
                         @for (categoria of categorias; track categoria) {

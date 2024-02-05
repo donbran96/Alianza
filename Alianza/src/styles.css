@@ -58,3 +58,7 @@
 .ng-invalid:not(form).ng-touched{
     border: 1px solid var(--rojo);
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

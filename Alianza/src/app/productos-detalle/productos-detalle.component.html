@@ -1,39 +1,203 @@
 <div class="contenedor margin-vertical caja">
-    <div class="galeria">
-        <div class="grande">
-            @if (mostrarimagen) {
-                <img [src]="imagengrande" alt="" class="imagen">
-            }
-        </div>
-        <div class="miniaturas">
-            @for (imagen of imagenes; track $index) {
-                <img [src]="imagen" alt="" class="miniaturas" (click)="cambiarImagen($index)" [ngClass]="{'activo': activo[$index]}">
-            }
-        </div>
+  <div class="galeria">
+    <div class="grande">
+      @if (mostrarimagen) {
+      <img [src]="imagengrande" alt="" class="imagen" />
+      }
     </div>
-    <div class="informacion">
-        <span class="tipo">Tipo: {{tipo}}</span><br>
-        <span class="marca">Marca: {{marca}}</span><br>
-        <span class="modelo">Modelo: {{modelo}}</span><br>
-        <span class="color">Color: {{color}}</span><br>
-        <span class="anio">Año: {{anio}}  </span><br>
-        <span class="placa">Placa: {{placa}}</span><br>
-      
-        <!--<span class="categorias">Categorías:
-        @for (categoria of categorias; track $index) {
-            <span>{{categoria}}</span>
-            @if (categorias.length-1!=$index) {
-                <span>, </span>
-            }
-        }
-        </span>-->
+    <div class="miniaturas">
+      @for (imagen of imagenes; track $index) {
+      <img
+        [src]="imagen"
+        alt=""
+        class="miniaturas"
+        (click)="cambiarImagen($index)"
+        [ngClass]="{ activo: activo[$index] }"
+      />
+      }
+    </div>
+  </div>
+  <div class="informacion">
+    <span
+      ><h2 class="title">{{ name }}</h2></span
+    ><br />
+    <span><b class="atribute">Tipo: </b> {{ tipo }}</span>
+    <span><b class="atribute">Marca: </b> {{ marca }}</span>
+    <span><b class="atribute">Modelo: </b> {{ modelo }}</span>
+    <span><b class="atribute">Color: </b> {{ color }}</span>
+    <span><b class="atribute">Año: </b> {{ anio }} </span>
+    <span><b class="atribute">Placa: </b> {{ placa }}</span>
+    <div class="formulario">
+      <form>
+        <input
+          type="number"
+          id="puja"
+          [(ngModel)]="puja"
+          [ngModelOptions]="{ standalone: true }"
+          [step]="aumento"
+          class="input-number"
+        />
+        <span>$</span>
+      </form>
+      <button (click)="enviarpuja()" class="boton"><b> Pujar </b></button>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-xl px-4 md:px-8">
+    <div class="grid gap-8 md:grid-cols-2">
+      <!-- images - start -->
+      <div class="grid gap-4 lg:grid-cols-5">
+        <div class="order-last flex gap-4 lg:order-none lg:flex-col">
+          @for (imagen of imagenes; track $index) {
+          <div class="overflow-hidden rounded-lg bg-gray-100">
+            <img
+              loading="lazy"
+              alt="..."
+              class="h-full w-full object-cover object-center"
+              [src]="imagen"
+              class="miniaturas"
+              (click)="cambiarImagen($index)"
+              [ngClass]="{ activo: activo[$index] }"
+            />
+          </div>
+          }
+        </div>
+
+        <div
+          class="relative overflow-hidden rounded-lg bg-gray-100 lg:col-span-4"
+        >
+          @if (mostrarimagen) {
+          <img
+            [src]="imagengrande"
+            loading="lazy"
+            alt="..."
+            class="h-full w-full object-cover object-center"
+          />
+          }
+        </div>
+      </div>
+      <!-- images - end -->
+
+      <!-- content - start -->
+      <div class="md:py-8">
+        <!-- name - start -->
+        <div class="mb-2 md:mb-3">
+          <span class="mb-0.5 inline-block text-gray-500">{{
+            categorias
+          }}</span>
+          <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl uppercase">
+            {{ name }}
+          </h2>
+        </div>
+        <!-- name - end -->
+
+        <!-- rating - start -->
+        <div class="mb-6 flex items-center gap-3 md:mb-10">
+          <div
+            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
+          >
+            <span class="text-sm uppercase"><b>Tipo:</b></span>
+          </div>
+
+          <span class="text-sm text-gray-500 transition duration-100">{{
+            tipo
+          }}</span>
+          <div
+            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
+          >
+            <span class="text-sm uppercase"><b>Marca:</b></span>
+          </div>
+
+          <span class="text-sm text-gray-500 transition duration-100">{{
+            marca
+          }}</span>
+        </div>
+        <!-- rating - end -->
+
+        <!-- rating - start -->
+        <div class="mb-6 flex items-center gap-3 md:mb-10">
+          <div
+            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
+          >
+            <span class="text-sm uppercase"><b>Modelo:</b></span>
+          </div>
+
+          <span class="text-sm text-gray-500 transition duration-100">{{
+            modelo
+          }}</span>
+          <div
+            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
+          >
+            <span class="text-sm uppercase"><b>Color:</b></span>
+          </div>
+
+          <span class="text-sm text-gray-500 transition duration-100">{{
+            color
+          }}</span>
+        </div>
+        <!-- rating - end -->
+
+        <!-- rating - start -->
+        <div class="mb-6 flex items-center gap-3 md:mb-10">
+          <div
+            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
+          >
+            <span class="text-sm uppercase"><b>Año:</b></span>
+          </div>
+
+          <span class="text-sm text-gray-500 transition duration-100">{{
+            anio
+          }}</span>
+          <div
+            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
+          >
+            <span class="text-sm uppercase"><b>Marca:</b></span>
+          </div>
+
+          <span class="text-sm text-gray-500 transition duration-100">{{
+            marca
+          }}</span>
+        </div>
+        <!-- rating - end -->
+
+        <!-- price - start -->
+        <div class="mb-4">
+          <div class="flex items-end gap-2">
+            <span class="text-xl font-bold text-gray-800 md:text-2xl"
+              >{{ puja_actual }} Bs.</span
+            >
+            <span class="mb-0.5 text-red-500 line-through"></span>
+          </div>
+        </div>
+        <!-- price - end -->
         <div class="formulario">
-            <form>
-                <input type="number" id="puja" [(ngModel)]="puja" [ngModelOptions]="{standalone: true}" [step]="aumento">
-                <span>$</span>
-            </form>
-            <button (click)="enviarpuja()" class="boton">Pujar</button>
+          <form>
+            <input
+              type="number"
+              id="puja"
+              [(ngModel)]="puja"
+              [ngModelOptions]="{ standalone: true }"
+              [step]="aumento"
+              class="input-number"
+            />
+            <span>Bs. 
+            </span>
+          </form>
         </div>
-        <p [ngClass]="{'valido':valido,'no_valido':!valido}">{{error}}</p>
+
+        <!-- buttons - start -->
+        <div class="flex gap-2.5">
+          <a
+            (click)="enviarpuja()"
+            class="inline-block flex-1 rounded-lg bg-blue-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-600 focus-visible:ring active:bg-blue-700 sm:flex-none md:text-base mt-3"
+            >Pujar</a
+          >
+        </div>
+        <!-- buttons - end -->
+      </div>
+      <!-- content - end -->
     </div>
+  </div>
 </div>

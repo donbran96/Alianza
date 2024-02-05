@@ -11,5 +11,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
-
+  
 }

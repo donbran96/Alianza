@@ -13,6 +13,15 @@ import { Productos } from '../interfaces/productos';
 export class ProductosComponent {
   productosService:ProductosService=inject(ProductosService);
   productos:Productos[]=[];
+
+  fechaActual: Date = new Date();
+  anio: number = this.fechaActual.getFullYear();
+  meses = [
+    'Enero', 'Febrero', 'Marzo', 'Abril',
+    'Mayo', 'Junio', 'Julio', 'Agosto',
+    'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ];
+  mes: String = this.meses[this.fechaActual.getMonth()];
  
   ngOnInit(){
     this.productosService.getProductos().subscribe({

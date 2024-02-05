@@ -1,53 +1,216 @@
-ul.grid-productos img{
-    width: 200px;
-    height: 150px;
+/* Estilos específicos para dispositivos pequeños */
+@media screen and (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .dropdown {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
 }
-ul.grid-productos{
+
+/* Mejora los estilos de los productos */
+ul.grid-productos {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 15px;
+    margin-top: 20px;
 }
-ul.grid-productos li{
+
+ul.grid-productos li {
     list-style: none;
     border: 1px solid var(--azul);
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 20px;
     transition: all 0.5s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-ul.grid-productos li:hover{
-    /*transform: scale(1.03);*/
+
+ul.grid-productos li:hover {
     background: var(--gris);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-ul.grid-productos .imagen{
+
+ul.grid-productos .imagen {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    align-items: center; /* Centra la imagen verticalmente */
+    height: 150px; /* Altura fija para las imágenes */
+    overflow: hidden; /* Asegura que las imágenes no se desborden del contenedor */
 }
-.boton a{
+
+ul.grid-productos .imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene la proporción y recorta la imagen según sea necesario */
+}
+
+.detail-product {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 10px; /* Añadido margen superior para separar del elemento anterior */
+    margin-bottom: 10px; /* Añadido margen inferior para separar del elemento siguiente */
+}
+
+.boton a {
     display: inline-block;
     background: var(--azul);
-    padding: 10px 25px;
+    padding: 10px 20px;
     border-radius: 5px;
     color: var(--blanco);
     text-decoration: none;
 }
-.boton{
+
+.boton {
     display: flex;
     justify-content: center;
     margin-top: 10px;
 }
-.categoria{
+
+.categoria {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
+    font-weight: bold;
+    color: var(--azul);
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
 }
-@media screen and (max-width:1024px){
-    ul.grid-productos{
-        grid-template-columns: 1fr 1fr;
+
+/* Estilo del contenedor del formulario */
+.contenedor form {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Estilo de cada fila del formulario (cada par de etiqueta y select) */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Estilo de cada dropdown */
+.dropdown {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Estilo del select */
+.contenedor form .dropdown select {
+    padding: 10px;
+    font-size: 14px;
+    border: 0.5px solid;
+    border-radius: 4px;
+    background-color: #fff;
+    color: black;
+    width: 100%; /* Aprovecha el ancho completo del contenedor */
+}
+
+/* Estilo de las opciones del select */
+.contenedor form .dropdown select option {
+    color: black;
+}
+
+/* Estilo del botón de filtrar */
+.contenedor form button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Cambio de color al pasar el mouse sobre el botón */
+.contenedor form button:hover {
+    background-color: #267bb6;
+}
+
+.contenedor form .dropdown label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: black;
+}
+
+/* Estilos específicos para dispositivos pequeños (puedes ajustar según sea necesario) */
+@media screen and (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        /* Cambia la dirección de flex a columna en dispositivos pequeños */
+    }
+
+    .dropdown {
+        margin-right: 0;
+        /* Elimina el margen derecho en dispositivos pequeños */
+        margin-bottom: 10px;
+        /* Ajusta el margen inferior entre dropdowns en dispositivos pequeños */
     }
 }
-@media screen and (max-width:550px){
-    ul.grid-productos{
-        grid-template-columns: 1fr;
-    }
+
+/*-----------------------------*/
+.detail-product{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+/* Estilo general de la caja */
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Estilo del select */
+  .box select {
+    background-color: #0563af;
+    color: white;
+    padding: 12px;
+    width: 250px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+  }
+  
+  /* Estilo del ícono antes del select */
+  .box::before {
+    content: "\f13a";
+    font-family: FontAwesome;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  }
+  
+  /* Cambio de estilos al pasar el mouse sobre la caja */
+  .box:hover::before {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Estilo de las opciones del select */
+  .box select option {
+    padding: 30px;
+  }
+  
+  

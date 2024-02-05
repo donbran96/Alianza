@@ -1,49 +1,201 @@
-<div>
-    <form [formGroup]="registroForm" (ngSubmit)="enviarregistro()">
-        <div>
-            <label for="nombre">Nombre completo:</label><br>
-            <input type="text" id="nombre" formControlName="nombre">
-            @if(usuarioinvalido&& arrayerrores['nombre']){
-                <div class="error">{{arrayerrores['nombre']}}</div>
-            }
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+    <!-- text - start -->
+    <div class="mb-10 md:mb-16">
+      <h2
+        class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"
+      >
+        REGISTRARSE
+      </h2>
+
+      <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
+        Proporciona información real, toda información enviada será verificada.
+      </p>
+    </div>
+    <!-- text - end -->
+
+    <!-- form - start -->
+    <form
+      class="mx-auto grid max-w-screen-md gap-4 sm:grid-cols-2"
+      [formGroup]="registroForm"
+      (ngSubmit)="enviarregistro()"
+    >
+      <div>
+        <label
+          for="nombre"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Nombre Completo</label
+        >
+        <input
+          id="nombre"
+          formControlName="nombre"
+          name="nombre"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+        />
+        @if(usuarioinvalido&& arrayerrores['nombre']){
+        <div class="error">{{ arrayerrores["nombre"] }}</div>
+        }
+      </div>
+
+      <div>
+        <label
+          for="ci"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Carnet de Identidad</label
+        >
+        <input
+          type="number"
+          id="ci"
+          formControlName="ci"
+          name="ci"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+        />
+        @if(usuarioinvalido && arrayerrores['ci']){
+        <div class="error">{{ arrayerrores["ci"] }}</div>
+        }
+      </div>
+
+      <div class="sm:col-span-2">
+        <label
+          for="correo"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Email</label
+        >
+        <input
+          type="email"
+          id="correo"
+          formControlName="correo"
+          name="correo"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+        />
+        @if(usuarioinvalido && arrayerrores['correovacio']){
+        <div class="error">{{ arrayerrores["correovacio"] }}</div>
+        }@if(usuarioinvalido && arrayerrores['correoinvalido']){
+        <div class="error">{{ arrayerrores["correoinvalido"] }}</div>
+        }
+      </div>
+
+      <div class="sm:col-span-2">
+        <label
+          for="telefono"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Teléfono</label
+        >
+        <input
+          type="number"
+          id="telefono"
+          formControlName="telefono"
+          name="telefono"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+        />
+        @if(usuarioinvalido && arrayerrores['telefono']){
+        <div class="error">{{ arrayerrores["telefono"] }}</div>
+        }
+      </div>
+
+      <div>
+        <label
+          for="password0"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Contraseña</label
+        >
+        <input
+          type="password"
+          id="password0"
+          formControlName="password"
+          name="password0"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+        />
+        @if(usuarioinvalido && arrayerrores['password']){
+        <div class="error">{{ arrayerrores["password"] }}</div>
+        }
+      </div>
+
+      <div class="sm:col-span-2">
+        <label
+          for="fotocopia"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Fotocopia del Carnet (Anverso - Reverso)</label
+        >
+      </div>
+
+      <label
+        for="dropzone-file"
+        class="flex flex-col items-center justify-center w-full h-auto sm:h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 transition duration-300 shadow-sm"
+      >
+        <div
+          class="flex flex-col items-center justify-center pt-2 pb-3 mx-auto"
+        >
+          <!-- Añadido mx-auto para centrar en pantallas grandes -->
+          <ng-container *ngIf="imagenesPreviaURL.length > 0">
+            <div class="flex flex-wrap -mx-2">
+              <div
+                *ngFor="let url of imagenesPreviaURL; let i = index"
+                class="w-full sm:w-1/6 md:w-1/6 lg:w-1/4 xl:w-1/4 px-2 mb-4"
+              >
+                <div
+                  class="relative pb-2/3 overflow-hidden border border-gray-300 rounded-lg"
+                >
+                  <img
+                    [src]="url"
+                    alt="Vista previa"
+                    class="w-full h-full object-cover max-w-32 max-h-32 sm:max-w-full sm:max-h-full"
+                  />
+                  <button
+                    (click)="eliminarImagen(i, $event)"
+                    class="absolute top-2 right-2 px-2 py-1 text-xs text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-400"
+                  >
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <svg
+            *ngIf="imagenesPreviaURL.length === 0"
+            class="w-8 h-8 mb-2 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 16"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+            />
+          </svg>
+          <p class="mb-1 text-sm text-gray-500 dark:text-gray-400">
+            <span class="font-semibold">Click para subir una imagen</span> o
+            arrastra una imagen
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG</p>
         </div>
-        <div>
-            <label for="ci">Carnet de identidad:</label><br>
-            <input type="number" id="ci" formControlName="ci">
-            @if(usuarioinvalido&& arrayerrores['ci']){
-                <div class="error">{{arrayerrores['ci']}}</div>
-            }
-        </div>
-        <div>
-            <label for="correo">Correo:</label><br>
-            <input type="email" id="correo" formControlName="correo">
-            @if(usuarioinvalido&& arrayerrores['correovacio']){
-                <div class="error">{{arrayerrores['correovacio']}}</div>
-            }@if(usuarioinvalido&& arrayerrores['correoinvalido']){
-                <div class="error">{{arrayerrores['correoinvalido']}}</div>
-            }
-        </div>
-        <div>
-            <label for="telefono">Teléfono:</label><br>
-            <input type="number" id="telefono" formControlName="telefono">
-            @if(usuarioinvalido&& arrayerrores['telefono']){
-                <div class="error">{{arrayerrores['telefono']}}</div>
-            }
-        </div>
-        <div>
-            <label for="pdf">Fotocopia de CI:</label><br>
-            <input type="file" id="pdf" accept=".pdf" formControlName="fotocopia">
-            @if(usuarioinvalido&& arrayerrores['fotocopia']){
-                <div class="error">{{arrayerrores['fotocopia']}}</div>
-            }
-        </div>
-        <div>
-            <label for="password0">Contraseña:</label><br>
-            <input type="password" id="password0" formControlName="password">
-            @if(usuarioinvalido&& arrayerrores['password']){
-                <div class="error">{{arrayerrores['password']}}</div>
-            }
-        </div>
-        <button type="submit" class="boton">Registrarse</button>
+        <input
+          name="dropzone"
+          id="dropzone-file"
+          type="file"
+          class="hidden"
+          accept="image/.jpg || image/.png"
+          (change)="onFilesSelected($event)"
+          multiple
+        />
+        @if(usuarioinvalido&& arrayerrores['imagenes']){
+        <div class="error">{{ arrayerrores["imagenes"] }}</div>
+        }
+      </label>
+
+      <div class="flex items-center justify-between sm:col-span-2">
+        <button
+          type="submit"
+          class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base"
+        >
+          Registrar
+        </button>
+      </div>
     </form>
+    <!-- form - end -->
+  </div>
 </div>
