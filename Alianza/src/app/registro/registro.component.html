@@ -24,16 +24,33 @@
         <label
           for="nombre"
           class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
-          >Nombre Completo</label
+          >Nombre</label
         >
         <input
           id="nombre"
-          formControlName="nombre"
+          formControlName="name"
           name="nombre"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido&& arrayerrores['nombre']){
-        <div class="error">{{ arrayerrores["nombre"] }}</div>
+        @if(usuarioinvalido&& arrayerrores['name']){
+        <div class="error">{{ arrayerrores["name"] }}</div>
+        }
+      </div>
+
+      <div>
+        <label
+          for="surname"
+          class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
+          >Apellido</label
+        >
+        <input
+          id="surname"
+          formControlName="surname"
+          name="surname"
+          class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
+        />
+        @if(usuarioinvalido&& arrayerrores['surname']){
+        <div class="error">{{ arrayerrores["surname"] }}</div>
         }
       </div>
 
@@ -64,14 +81,14 @@
         <input
           type="email"
           id="correo"
-          formControlName="correo"
+          formControlName="mail"
           name="correo"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido && arrayerrores['correovacio']){
-        <div class="error">{{ arrayerrores["correovacio"] }}</div>
-        }@if(usuarioinvalido && arrayerrores['correoinvalido']){
-        <div class="error">{{ arrayerrores["correoinvalido"] }}</div>
+        @if(usuarioinvalido && arrayerrores['mail_empty']){
+        <div class="error">{{ arrayerrores["mail_empty"] }}</div>
+        }@if(usuarioinvalido && arrayerrores['mail_invalid']){
+        <div class="error">{{ arrayerrores["mail_invalid"] }}</div>
         }
       </div>
 
@@ -84,12 +101,12 @@
         <input
           type="number"
           id="telefono"
-          formControlName="telefono"
+          formControlName="phone"
           name="telefono"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido && arrayerrores['telefono']){
-        <div class="error">{{ arrayerrores["telefono"] }}</div>
+        @if(usuarioinvalido && arrayerrores['phone']){
+        <div class="error">{{ arrayerrores["phone"] }}</div>
         }
       </div>
 
@@ -178,12 +195,12 @@
           id="dropzone-file"
           type="file"
           class="hidden"
-          accept="image/.jpg || image/.png"
+          accept="image/*"
           (change)="onFilesSelected($event)"
           multiple
-        />
-        @if(usuarioinvalido&& arrayerrores['imagenes']){
-        <div class="error">{{ arrayerrores["imagenes"] }}</div>
+        >
+        @if(usuarioinvalido&& arrayerrores['images']){
+        <div class="error">{{ arrayerrores["images"] }}</div>
         }
       </label>
 

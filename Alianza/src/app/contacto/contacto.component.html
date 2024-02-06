@@ -1,26 +1,66 @@
-<div class="contenedor margin-vertical">
-    <div class="informacion">
-        
+<div class="contenedor my-4">
+  <div class="informacion"></div>
+  <div class="mapa">
+    <div class="botones">
+      <h3 class="text-lg font-semibold">Nuestras Ubicaciones</h3>
+      <a class="btn-mapa" (click)="mostrarmapa(0)">Santa Cruz</a>
+      <a class="btn-mapa" (click)="mostrarmapa(1)">La Paz</a>
+      <a class="btn-mapa" (click)="mostrarmapa(2)">Tarija</a>
+      <p class="mt-2">Teléfono: {{ telefono }}</p>
+      <p>Correo: {{ correo }}</p>
     </div>
-    <div class="mapa">
-        <div class="botones">
-            <h3>Nuestras Ubicaciones</h3>
-            <a (click)="mostrarmapa(0)">Santa Cruz</a>
-            <a (click)="mostrarmapa(1)">La Paz</a>
-            <a (click)="mostrarmapa(2)">Tarija</a>
-            <p>Teléfono: {{telefono}}</p>
-            <p>Correo: {{correo}}</p>
-        </div>
-        <div class="caja_mapas">
-            <div class="mapas" [ngClass]="{ 'mapa_visible' : mapa_visible[0], 'mapa_invisible' : !mapa_visible[0]}">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.1266915924443!2d-63.21143292843532!3d-17.785741937917063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1c2a90e2f9f2b%3A0xe6f44d5c6d47ed47!2sAlianza%20Seguros!5e0!3m2!1ses-419!2sbo!4v1703794271913!5m2!1ses-419!2sbo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="mapas" [ngClass]="{ 'mapa_visible' : mapa_visible[1], 'mapa_invisible' : !mapa_visible[1]}">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d7649.619724477215!2d-68.078611!3d-16.535694000000003!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTbCsDMyJzA4LjUiUyA2OMKwMDQnNDMuMCJX!5e0!3m2!1ses!2sus!4v1703794407563!5m2!1ses!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="mapas" [ngClass]="{ 'mapa_visible' : mapa_visible[2], 'mapa_invisible' : !mapa_visible[2]}">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d7422.348492317388!2d-64.729235!3d-21.540041!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDMyJzI0LjIiUyA2NMKwNDMnNDUuMyJX!5e0!3m2!1ses!2sus!4v1703794477272!5m2!1ses!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
+    <div class="caja_mapas grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div
+        [ngClass]="{
+          mapa_visible: mapa_visible[0],
+          mapa_invisible: !mapa_visible[0]
+        }"
+        class="mapas"
+      >
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3799.1266915924443!2d-63.21143292843532!3d-17.785741937917063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f1c2a90e2f9f2b%3A0xe6f44d5c6d47ed47!2sAlianza%20Seguros!5e0!3m2!1ses-419!2sbo!4v1703794271913!5m2!1ses-419!2sbo"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div
+        [ngClass]="{
+          mapa_visible: mapa_visible[1],
+          mapa_invisible: !mapa_visible[1]
+        }"
+        class="mapas"
+      >
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d7649.619724477215!2d-68.078611!3d-16.535694000000003!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTbCsDMyJzA4LjUiUyA2OMKwMDQnNDMuMCJX!5e0!3m2!1ses!2sus!4v1703794407563!5m2!1ses!2sus"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div
+        [ngClass]="{
+          mapa_visible: mapa_visible[2],
+          mapa_invisible: !mapa_visible[2]
+        }"
+        class="mapas"
+      >
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d7422.348492317388!2d-64.729235!3d-21.540041!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDMyJzI0LjIiUyA2NMKwNDMnNDUuMyJX!5e0!3m2!1ses!2sus!4v1703794477272!5m2!1ses!2sus"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
     </div>
+  </div>
 </div>

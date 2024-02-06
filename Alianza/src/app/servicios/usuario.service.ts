@@ -55,4 +55,9 @@ export class UsuarioService {
   get UserLogged():Observable<boolean>{
     return this.usuarioConectado.asObservable();
   }
+
+  registerUser(formData: FormData): Observable<any>{
+    // Realizar la solicitud HTTP
+    return this.http.post('/proposer/register_proposer', formData);
+  }
 }
