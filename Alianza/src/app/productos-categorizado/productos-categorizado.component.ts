@@ -74,7 +74,7 @@ export class ProductosCategorizadoComponent {
     this.productosService.getProductosByCategory(this.categoria).subscribe({
       next: (productosData) => {
         this.productos = productosData;
-        console.log(this.productos);
+        //console.log(this.productos);
       },
       error: (errorData) => {
         console.error(errorData);

@@ -64,10 +64,7 @@ export class PerfilComponent {
       }
     })
   }
-  ngOnDestroy():void{
-    //this.loginService.UserLogged.unsubscribe();
-    //this.loginService.UserData.unsubscribe();
-  }
+ 
   activaredicion(modo:boolean){
     this.editar=modo;
   }
