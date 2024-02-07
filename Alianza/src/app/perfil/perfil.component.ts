@@ -17,12 +17,14 @@ import { UsuarioUpdate } from '../interfaces/usuario-update';
 export class PerfilComponent {
   conectado:boolean=false;
   userData:Usuario={
-    mensaje: '',
     id: '',
     nombre: '',
+    apellido: '',
     ci: 0,
     correo: '',
     telefono: 0,
+    url_img_1: '',
+    url_img_2: '',
     subastas: []
   };
   editar:boolean=false;
@@ -34,6 +36,7 @@ export class PerfilComponent {
   usuarioinvalido:boolean=true;
   edicionForm:FormGroup=new FormGroup({
     nombre: new FormControl('', Validators.required),
+    apellido: new FormControl('', Validators.required),
     ci: new FormControl('', Validators.required),
     correo: new FormControl('', [Validators.required, Validators.email]),
     telefono: new FormControl('', Validators.required)
@@ -52,12 +55,14 @@ export class PerfilComponent {
         this.subastas=userData.subastas;
         this.edicionForm.patchValue({
           nombre:userData.nombre,
+          apellido: userData.apellido,
           ci:userData.ci,
           correo:userData.correo,
           telefono:userData.telefono
         })
       }
     });
+    
     this.productosService.getProductosById(this.subastas).subscribe({
       next:(productosSubasta)=>{
         this.productosSubastas=productosSubasta;
@@ -68,10 +73,12 @@ export class PerfilComponent {
   activaredicion(modo:boolean){
     this.editar=modo;
   }
+
   logout(){
     this.loginService.logout();
     this.Router.navigate(['/acceso']);
   }
+
   actualizarUsuario(){
     const correoControl = this.edicionForm.get('correo');
     this.arrayerrores={};
@@ -81,6 +88,7 @@ export class PerfilComponent {
           this.actualizado=respuesta;
           this.activaredicion(false);
           this.userData.nombre=this.edicionForm.value.nombre;
+          this.userData.apellido=this.edicionForm.value.apellido;
           this.userData.ci=this.edicionForm.value.ci;
           this.userData.correo=this.edicionForm.value.correo;
           this.userData.telefono=this.edicionForm.value.telefono;
@@ -110,16 +118,5 @@ export class PerfilComponent {
       }
       this.usuarioinvalido=true;
     }
-  }
-  cancelaredicion(){
-    this.activaredicion(false);
-    this.actualizado="";
-    this.edicionForm.reset();
-    this.edicionForm.patchValue({
-      nombre:this.userData?.nombre,
-      ci:this.userData?.ci,
-      correo:this.userData?.correo,
-      telefono:this.userData?.telefono
-    })
   }
 }

@@ -3,12 +3,13 @@ import { ProductosService } from '../servicios/productos.service';
 import { Productos } from '../interfaces/productos';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TopClientesOfertasComponent } from './top-clientes-ofertas/top-clientes-ofertas.component';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos-detalle',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TopClientesOfertasComponent],
   templateUrl: './productos-detalle.component.html',
   styleUrl: './productos-detalle.component.css',
 })
@@ -42,6 +43,7 @@ export class ProductosDetalleComponent implements OnInit {
   placa: string = '';
 
   ngOnInit() {
+    this.update();
     this.nombre = parseInt(this.titulo, 10);
     this.productosService.getProductoById(this.nombre).subscribe({
       next: (productoData) => {
@@ -137,5 +139,12 @@ export class ProductosDetalleComponent implements OnInit {
         showConfirmButton: false, // Oculta el botón de confirmación
       });
     }
+  }
+
+  update(): void{
+    setInterval(() => {
+      // Llama a un método para actualizar los datos del componente TopClientesOfertasComponent
+      //this.topClientesOfertasComponent.actualizarDatos();
+    }, 300000); // 300000 milisegundos = 5 minutos
   }
 }

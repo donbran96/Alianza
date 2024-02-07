@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../servicios/usuario.service';
 import { core } from '@angular/compiler';
 import { LoginRequest } from '../interfaces/login-request';
+import Swal from 'sweetalert2';
+import { Message } from '../interfaces/message';
 
 @Component({
   selector: 'app-login',
@@ -20,48 +22,68 @@ import { LoginRequest } from '../interfaces/login-request';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  usuarioinvalido: boolean = false;
-  arrayerrores: { [key: string]: string } = {};
-  loginError: string = '';
+  userInvalid: boolean = false;
+  message: Message = {
+    title: '',
+    text: '',
+    icon: 'info',
+  };
   loginForm: FormGroup = new FormGroup({
-    correo: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.min(6)]),
+    mail: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
   });
+
   constructor(private router: Router, private loginService: UsuarioService) {}
 
-  enviarlogin() {
-    const correoControl = this.loginForm.get('correo');
-    this.arrayerrores = {};
+  sendLogin() {
     if (this.loginForm.valid) {
-      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
-        next: (userData) => {
-          console.log(userData);
-          this.router.navigate(['/mi-perfil']);
-          this.loginForm.reset();
+      // Crear un nuevo objeto FormData
+      const formData = new FormData();
+
+      // Agregar datos al FormData
+      formData.append('mail', this.loginForm.get('mail')?.value);
+      formData.append('password', this.loginForm.get('password')?.value);
+
+      this.loginService.login(formData).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.loginForm.reset();
+            console.log('Respuesta de la API:', response);
+            this.message.title = 'Enviado';
+            this.message.text = 'Datos Correctos.';
+            this.message.icon = 'success';
+            this.showMessage();
+            this.router.navigate(['/mi-perfil']);
+          } else {
+            this.message.title = 'Error!';
+            this.message.text =
+              'Credenciales incorrectas, intentelo denuevo.';
+            this.message.icon = 'error';
+            this.showMessage();
+          }
         },
-        error: (errorData) => {
-          console.error(errorData);
-          this.loginError = errorData;
-        },
-        complete: () => {
-          console.info('Login completo');
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+          this.message.title = 'Error!';
+          this.message.text =
+            'Error al comunicarse con el servidor, intentelo de nuevo.';
+          this.message.icon = 'error';
+          this.showMessage();
         },
       });
     } else {
-      if (this.loginForm.value.correo == '') {
-        this.arrayerrores['correovacio'] = 'Ingrese su Correo Electrónico';
-      }
-      if (
-        correoControl &&
-        correoControl.invalid &&
-        correoControl.hasError('email')
-      ) {
-        this.arrayerrores['correoinvalido'] = 'Correo electrónico inválido';
-      }
-      if (this.loginForm.value.password == '') {
-        this.arrayerrores['password'] = 'Ingrese su Contraseña';
-      }
-      this.usuarioinvalido = true;
+      this.userInvalid = true;
     }
+  }
+
+  showMessage(): void {
+    Swal.fire({
+      title: this.message.title,
+      text: this.message.text,
+      icon: this.message.icon,
+      timer: 3000, // Tiempo en milisegundos (en este caso, 3 segundos)
+      timerProgressBar: true, // Muestra una barra de progreso
+      showConfirmButton: false, // Oculta el botón de confirmación
+    });
   }
 }

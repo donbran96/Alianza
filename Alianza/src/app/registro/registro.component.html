@@ -1,43 +1,58 @@
 <div class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-    <!-- text - start -->
     <div class="mb-10 md:mb-16">
       <h2
         class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"
       >
         REGISTRARSE
       </h2>
-
       <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
         Proporciona información real, toda información enviada será verificada.
       </p>
     </div>
-    <!-- text - end -->
 
     <!-- form - start -->
     <form
       class="mx-auto grid max-w-screen-md gap-4 sm:grid-cols-2"
-      [formGroup]="registroForm"
-      (ngSubmit)="enviarregistro()"
+      [formGroup]="registerForm"
+      (ngSubmit)="sendRegister()"
     >
-      <div>
+      <div class="sm:col-span-2">
         <label
-          for="nombre"
+          for="name"
           class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
           >Nombre</label
         >
         <input
-          id="nombre"
+          id="name"
           formControlName="name"
-          name="nombre"
+          name="name"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido&& arrayerrores['name']){
-        <div class="error">{{ arrayerrores["name"] }}</div>
-        }
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="
+            registerForm.get('name')?.invalid &&
+            (registerForm.get('name')?.dirty ||
+              registerForm.get('name')?.touched)
+          "
+        >
+          <div
+            *ngIf="registerForm.get('name')?.errors?.['required']"
+            class="error text-red-600"
+          >
+            Ingrese su Nombre
+          </div>
+          <div
+            *ngIf="registerForm.get('name')?.errors?.['minlength']"
+            class="error text-red-600"
+          >
+            El nombre debe tener al menos 3 caracteres
+          </div>
+        </div>
       </div>
 
-      <div>
+      <div class="sm:col-span-2">
         <label
           for="surname"
           class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
@@ -49,47 +64,105 @@
           name="surname"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido&& arrayerrores['surname']){
-        <div class="error">{{ arrayerrores["surname"] }}</div>
-        }
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="
+            registerForm.get('surname')?.invalid &&
+            (registerForm.get('surname')?.dirty ||
+              registerForm.get('surname')?.touched)
+          "
+        >
+          <div
+            *ngIf="registerForm.get('surname')?.errors?.['required']"
+            class="error text-red-600"
+          >
+            Ingrese su Apellido
+          </div>
+          <div
+            *ngIf="registerForm.get('surname')?.errors?.['minlength']"
+            class="error text-red-600"
+          >
+            El Apellido debe tener al menos 4 caractéres
+          </div>
+        </div>
       </div>
 
-      <div>
+      <div class="sm:col-span-2">
         <label
           for="ci"
           class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
           >Carnet de Identidad</label
         >
         <input
-          type="number"
+          type="text"
           id="ci"
           formControlName="ci"
           name="ci"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido && arrayerrores['ci']){
-        <div class="error">{{ arrayerrores["ci"] }}</div>
-        }
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="
+            registerForm.get('ci')?.invalid &&
+            (registerForm.get('ci')?.dirty || registerForm.get('ci')?.touched)
+          "
+        >
+          <div
+            *ngIf="registerForm.get('ci')?.errors?.['required']"
+            class="error text-red-600"
+          >
+            Ingrese su número de carnet
+          </div>
+          <div
+            *ngIf="registerForm.get('ci')?.errors?.['minlength']"
+            class="error text-red-600"
+          >
+            El Número de Carnet debe tener al menos 6 dígitos
+          </div>
+          <div
+            *ngIf="registerForm.get('ci')?.errors?.['notANumber']"
+            class="error text-red-600"
+          >
+            Este campo solo permite números
+          </div>
+        </div>
       </div>
 
       <div class="sm:col-span-2">
         <label
-          for="correo"
+          for="mail"
           class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
-          >Email</label
+          >Correo Electrónico</label
         >
         <input
-          type="email"
-          id="correo"
+          type="mail"
+          id="mail"
           formControlName="mail"
-          name="correo"
+          name="mail"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido && arrayerrores['mail_empty']){
-        <div class="error">{{ arrayerrores["mail_empty"] }}</div>
-        }@if(usuarioinvalido && arrayerrores['mail_invalid']){
-        <div class="error">{{ arrayerrores["mail_invalid"] }}</div>
-        }
+
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="
+            registerForm.get('mail')?.invalid &&
+            (registerForm.get('mail')?.dirty ||
+              registerForm.get('mail')?.touched)
+          "
+        >
+          <div
+            *ngIf="registerForm.get('mail')?.errors?.['required']"
+            class="error text-red-600"
+          >
+            Ingrese su dirección de Correo Electrónico
+          </div>
+          <div
+            *ngIf="registerForm.get('mail')?.errors?.['email']"
+            class="error text-red-600"
+          >
+            El Correo Electrónico no es válido
+          </div>
+        </div>
       </div>
 
       <div class="sm:col-span-2">
@@ -99,33 +172,75 @@
           >Teléfono</label
         >
         <input
-          type="number"
-          id="telefono"
+          type="text"
+          id="phone"
           formControlName="phone"
-          name="telefono"
+          name="phone"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido && arrayerrores['phone']){
-        <div class="error">{{ arrayerrores["phone"] }}</div>
-        }
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="
+            registerForm.get('phone')?.invalid &&
+            (registerForm.get('phone')?.dirty ||
+              registerForm.get('phone')?.touched)
+          "
+        >
+          <div
+            *ngIf="registerForm.get('phone')?.errors?.['required']"
+            class="error text-red-600"
+          >
+            Ingrese su Número de Telefono
+          </div>
+          <div
+            *ngIf="registerForm.get('phone')?.errors?.['minlength']"
+            class="error text-red-600"
+          >
+            El Número de Telefono debe tener al menos 6 dígitos
+          </div>
+          <div
+            *ngIf="registerForm.get('phone')?.errors?.['notANumber']"
+            class="error text-red-600"
+          >
+            Este campo solo permite números
+          </div>
+        </div>
       </div>
 
-      <div>
+      <div class="sm:col-span-2">
         <label
-          for="password0"
+          for="password"
           class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
           >Contraseña</label
         >
         <input
           type="password"
-          id="password0"
+          id="password"
           formControlName="password"
-          name="password0"
+          name="password"
           class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
         />
-        @if(usuarioinvalido && arrayerrores['password']){
-        <div class="error">{{ arrayerrores["password"] }}</div>
-        }
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="
+            registerForm.get('password')?.invalid &&
+            (registerForm.get('password')?.dirty ||
+              registerForm.get('password')?.touched)
+          "
+        >
+          <div
+            *ngIf="registerForm.get('password')?.errors?.['required']"
+            class="error text-red-600"
+          >
+            Ingrese su Contraseña
+          </div>
+          <div
+            *ngIf="registerForm.get('password')?.errors?.['minlength']"
+            class="error text-red-600"
+          >
+            La Contraseña debe tener al menos 6 caracteres
+          </div>
+        </div>
       </div>
 
       <div class="sm:col-span-2">
@@ -138,7 +253,7 @@
 
       <label
         for="dropzone-file"
-        class="flex flex-col items-center justify-center w-full h-auto sm:h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 transition duration-300 shadow-sm"
+        class="sm:col-span-2 flex flex-col items-center justify-center w-full h-auto sm:h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-200 dark:hover:border-gray-100 dark:hover:bg-gray-200 transition duration-300 shadow-sm relative"
       >
         <div
           class="flex flex-col items-center justify-center pt-2 pb-3 mx-auto"
@@ -160,7 +275,7 @@
                   />
                   <button
                     (click)="eliminarImagen(i, $event)"
-                    class="absolute top-2 right-2 px-2 py-1 text-xs text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-400"
+                    class="absolute top-2 right-2 px-2 py-1 text-xs text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-400 z-10"
                   >
                     <i class="fa-solid fa-trash-can"></i>
                   </button>
@@ -191,28 +306,40 @@
           <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG</p>
         </div>
         <input
-          name="dropzone"
+          name="images"
           id="dropzone-file"
           type="file"
-          class="hidden"
-          accept="image/*"
+          class="file absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+          accept=".jpg, .jpeg, .png"
           (change)="onFilesSelected($event)"
           multiple
-        >
-        @if(usuarioinvalido&& arrayerrores['images']){
-        <div class="error">{{ arrayerrores["images"] }}</div>
-        }
+        />
       </label>
+      <div *ngIf="imagenesPreviaURL.length >= 1">
+        <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+          *ngIf="registerForm.get('images')?.errors?.['required']"
+          class="error text-red-600"
+        >
+          Ingrese una imagen
+        </div>
+        <div *ngIf="imagenesPreviaURL.length != 2" class="error text-red-600">
+          Debe ingresar 2 imagenes
+        </div>
+      </div>
 
       <div class="flex items-center justify-between sm:col-span-2">
         <button
           type="submit"
-          class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base"
+          class="block rounded-lg px-8 py-3 text-center text-sm font-semibold outline-none transition duration-100 focus-visible:ring md:text-base text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 transform hover:scale-105 focus:ring-blue-300"
+          [ngClass]="{
+            'cursor-not-allowed': !registerForm.valid
+          }"
+          [disabled]="!registerForm.valid"
         >
           Registrar
         </button>
       </div>
     </form>
-    <!-- form - end -->
   </div>
 </div>

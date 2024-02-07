@@ -29,7 +29,7 @@
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                Nombre Completo
+                Nombre
               </label>
               <input
                 id="nombre"
@@ -40,6 +40,27 @@
               />
               @if(usuarioinvalido&& arrayerrores['nombre']){
               <div class="error">{{ arrayerrores["nombre"] }}</div>
+              }
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                for="apellido"
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Apellido
+              </label>
+              <input
+                id="apellido"
+                formControlName="apellido"
+                type="text"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value="{{ userData.apellido }}"
+              />
+              @if(usuarioinvalido&& arrayerrores['apellido']){
+              <div class="error">{{ arrayerrores["apellido"] }}</div>
               }
             </div>
           </div>

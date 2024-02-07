@@ -1,6 +1,5 @@
 <div class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-    <div class="error">{{ loginError }}</div>
     <h2
       class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-8 lg:text-3xl"
     >
@@ -10,26 +9,43 @@
     <form
       class="mx-auto max-w-lg rounded-lg border"
       [formGroup]="loginForm"
-      (ngSubmit)="enviarlogin()"
+      (ngSubmit)="sendLogin()"
     >
       <div class="flex flex-col gap-4 p-4 md:p-8">
         <div>
           <label
-            for="correo"
+            for="mail"
             class="mb-2 inline-block text-sm text-gray-800 sm:text-base"
-            >Email</label
+            >Correo Eléctronico</label
           >
           <input
-            name="correo"
+            name="mail"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
-            id="correo"
-            formControlName="correo"
+            id="mail"
+            formControlName="mail"
           />
-          @if(usuarioinvalido&& arrayerrores['correovacio']){
-          <div class="error">{{ arrayerrores["correovacio"] }}</div>
-          }@if(usuarioinvalido&& arrayerrores['correoinvalido']){
-          <div class="error">{{ arrayerrores["correoinvalido"] }}</div>
-          }
+
+          <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+        *ngIf="
+          loginForm.get('mail')?.invalid &&
+          (loginForm.get('mail')?.dirty ||
+            loginForm.get('mail')?.touched)
+        "
+      >
+        <div
+          *ngIf="loginForm.get('mail')?.errors?.['required']"
+          class="error text-red-600"
+        >
+          Ingrese su dirección de Correo Electrónico
+        </div>
+        <div
+          *ngIf="loginForm.get('mail')?.errors?.['email']"
+          class="error text-red-600"
+        >
+          El Correo Electrónico no es válido
+        </div>
+      </div>
         </div>
 
         <div>
@@ -45,14 +61,30 @@
             type="password"
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
           />
-          @if(usuarioinvalido&& arrayerrores['password']){
-          <div class="error">{{ arrayerrores["password"] }}</div>
-          }
+          <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+        "
+      >
+        <div
+          *ngIf="loginForm.get('password')?.errors?.['required']"
+          class="error text-red-600"
+        >
+          Ingrese su Contraseña
+        </div>
+      </div>
         </div>
 
         <button
           type="submit"
-          class="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base"
+          class="block rounded-lg px-8 py-3 text-center text-sm font-semibold outline-none transition duration-100 focus-visible:ring md:text-base text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 transform hover:scale-105 focus:ring-blue-300"
+          [ngClass]="{
+            'cursor-not-allowed': !loginForm.valid
+          }"
+          [disabled]="!loginForm.valid"
         >
           Log in
         </button>
