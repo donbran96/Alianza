@@ -7,6 +7,21 @@
       <div class="text-center flex justify-between">
         <h6 class="text-blueGray-700 text-xl font-bold uppercase">Mi Cuenta</h6>
         <button
+          class="px-4 py-2 rounded justify-end text-white"
+          [ngClass]="{
+            'bg-green-700': userData.verify == 1,
+            'bg-red-700': userData.verify != 1
+          }"
+          [disabled]="true"
+        >
+        <i [ngClass]="{
+          'fa-solid fa-user-check': userData.verify == 1,
+          'fa fa-user-xmark': userData.verify != 1
+        }"></i>
+          Usuario {{ userData.verify == 1 ? "Verificado" : "No Verificado" }}
+        </button>
+
+        <button
           (click)="logout()"
           class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
           type="button"
@@ -16,75 +31,126 @@
       </div>
     </div>
     <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-      <form [formGroup]="edicionForm" (ngSubmit)="actualizarUsuario()">
+      <form [formGroup]="updateForm" (ngSubmit)="updateUser()">
         <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
           Información del Usuario
         </h6>
-        <div class="error">{{ updateError }}</div>
         <div class="flex flex-wrap">
           <div class="w-full lg:w-6/12 px-4">
             <div class="relative w-full mb-3">
               <label
-                for="nombre"
+                for="name"
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
                 Nombre
               </label>
               <input
-                id="nombre"
-                formControlName="nombre"
+                id="name"
+                formControlName="name"
                 type="text"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                value="{{ userData.nombre }}"
+                value="{{ userData.name }}"
               />
-              @if(usuarioinvalido&& arrayerrores['nombre']){
-              <div class="error">{{ arrayerrores["nombre"] }}</div>
-              }
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+              <div
+                *ngIf="
+                  updateForm.get('name')?.invalid &&
+                  (updateForm.get('name')?.dirty ||
+                    updateForm.get('name')?.touched)
+                "
+              >
+                <div
+                  *ngIf="updateForm.get('name')?.errors?.['required']"
+                  class="error text-red-600"
+                >
+                  Ingrese su Nombre
+                </div>
+                <div
+                  *ngIf="updateForm.get('name')?.errors?.['minlength']"
+                  class="error text-red-600"
+                >
+                  El nombre debe tener al menos 3 caracteres
+                </div>
+              </div>
             </div>
           </div>
           <div class="w-full lg:w-6/12 px-4">
             <div class="relative w-full mb-3">
               <label
-                for="apellido"
+                for="surname"
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
                 Apellido
               </label>
               <input
-                id="apellido"
-                formControlName="apellido"
+                id="surname"
+                formControlName="surname"
                 type="text"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                value="{{ userData.apellido }}"
+                value="{{ userData.surname }}"
               />
-              @if(usuarioinvalido&& arrayerrores['apellido']){
-              <div class="error">{{ arrayerrores["apellido"] }}</div>
-              }
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+              <div
+                *ngIf="
+                  updateForm.get('surname')?.invalid &&
+                  (updateForm.get('surname')?.dirty ||
+                    updateForm.get('surname')?.touched)
+                "
+              >
+                <div
+                  *ngIf="updateForm.get('surname')?.errors?.['required']"
+                  class="error text-red-600"
+                >
+                  Ingrese su Apellido
+                </div>
+                <div
+                  *ngIf="updateForm.get('surname')?.errors?.['minlength']"
+                  class="error text-red-600"
+                >
+                  El Apellido debe tener al menos 4 caractéres
+                </div>
+              </div>
             </div>
           </div>
           <div class="w-full lg:w-6/12 px-4">
             <div class="relative w-full mb-3">
               <label
-                for="correo"
+                for="mail"
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
-                Email
+                Correo Eléctronico
               </label>
               <input
-                id="correo"
-                formControlName="correo"
+                id="mail"
+                formControlName="mail"
                 type="email"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                value="{{ userData.correo }}"
+                value="{{ userData.mail }}"
               />
-              @if(usuarioinvalido&& arrayerrores['correovacio']){
-              <div class="error">{{ arrayerrores["correovacio"] }}</div>
-              }@if(usuarioinvalido&& arrayerrores['correoinvalido']){
-              <div class="error">{{ arrayerrores["correoinvalido"] }}</div>
-              }
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+              <div
+                *ngIf="
+                  updateForm.get('mail')?.invalid &&
+                  (updateForm.get('mail')?.dirty ||
+                    updateForm.get('mail')?.touched)
+                "
+              >
+                <div
+                  *ngIf="updateForm.get('mail')?.errors?.['required']"
+                  class="error text-red-600"
+                >
+                  Ingrese su dirección de Correo Electrónico
+                </div>
+                <div
+                  *ngIf="updateForm.get('mail')?.errors?.['email']"
+                  class="error text-red-600"
+                >
+                  El Correo Electrónico no es válido
+                </div>
+              </div>
             </div>
           </div>
           <div class="w-full lg:w-6/12 px-4">
@@ -103,39 +169,276 @@
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 value="{{ userData.ci }}"
               />
-              @if(usuarioinvalido&& arrayerrores['ci']){
-              <div class="error">{{ arrayerrores["ci"] }}</div>
-              }
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+              <div
+                *ngIf="
+                  updateForm.get('ci')?.invalid &&
+                  (updateForm.get('ci')?.dirty || updateForm.get('ci')?.touched)
+                "
+              >
+                <div
+                  *ngIf="updateForm.get('ci')?.errors?.['required']"
+                  class="error text-red-600"
+                >
+                  Ingrese su número de carnet
+                </div>
+                <div
+                  *ngIf="updateForm.get('ci')?.errors?.['minlength']"
+                  class="error text-red-600"
+                >
+                  El Número de Carnet debe tener al menos 6 dígitos
+                </div>
+                <div
+                  *ngIf="updateForm.get('ci')?.errors?.['notANumber']"
+                  class="error text-red-600"
+                >
+                  Este campo solo permite números
+                </div>
+              </div>
             </div>
           </div>
           <div class="w-full lg:w-6/12 px-4">
             <div class="relative w-full mb-3">
               <label
-                for="telefono"
+                for="phone"
                 class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                 htmlFor="grid-password"
               >
                 Teléfono
               </label>
               <input
-                id="telefono"
-                formControlName="telefono"
+                id="phone"
+                formControlName="phone"
                 type="number"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                value="{{ userData.telefono }}"
+                value="{{ userData.phone }}"
               />
-              @if(usuarioinvalido&& arrayerrores['telefono']){
-              <div class="error">{{ arrayerrores["telefono"] }}</div>
-              }
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+              <div
+                *ngIf="
+                  updateForm.get('phone')?.invalid &&
+                  (updateForm.get('phone')?.dirty ||
+                    updateForm.get('phone')?.touched)
+                "
+              >
+                <div
+                  *ngIf="updateForm.get('phone')?.errors?.['required']"
+                  class="error text-red-600"
+                >
+                  Ingrese su Número de Telefono
+                </div>
+                <div
+                  *ngIf="updateForm.get('phone')?.errors?.['minlength']"
+                  class="error text-red-600"
+                >
+                  El Número de Telefono debe tener al menos 6 dígitos
+                </div>
+                <div
+                  *ngIf="updateForm.get('phone')?.errors?.['notANumber']"
+                  class="error text-red-600"
+                >
+                  Este campo solo permite números
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                for="password"
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Contraseña Actual
+              </label>
+              <input
+                id="password"
+                formControlName="password"
+                type="password"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value=""
+              />
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+        *ngIf="
+          updateForm.get('password')?.invalid &&
+          (updateForm.get('password')?.dirty ||
+            updateForm.get('password')?.touched)
+        "
+      >
+        <div
+          *ngIf="updateForm.get('password')?.errors?.['minlength']"
+          class="error text-red-600"
+        >
+          La Contraseña debe tener al menos 6 caracteres
+        </div>
+      </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                for="password_new"
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Contraseña Nueva
+              </label>
+              <input
+                id="password_new"
+                formControlName="password_new"
+                type="password"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                value=""
+              />
+              <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+        <div
+        *ngIf="
+          updateForm.get('password_new')?.invalid &&
+          (updateForm.get('password_new')?.dirty ||
+            updateForm.get('password_new')?.touched)
+        "
+      >
+        <div
+          *ngIf="updateForm.get('password_new')?.errors?.['minlength']"
+          class="error text-red-600"
+        >
+          La Contraseña debe tener al menos 6 caracteres
+        </div>
+      </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                for="imgs"
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Fotocopia del Carnet (Anverso - Reverso) (Anterior)
+              </label>
+              <div
+                class="relative pb-2/3 overflow-hidden border border-gray-300 rounded-lg"
+              >
+                <img
+                  src=""
+                  alt="Vista previa"
+                  class="w-full h-full object-cover max-w-32 max-h-32 sm:max-w-full sm:max-h-full"
+                />
+              </div>
+              <div
+                class="relative pb-2/3 overflow-hidden border border-gray-300 rounded-lg"
+              >
+                <img
+                  src=""
+                  alt="Vista previa"
+                  class="w-full h-full object-cover max-w-32 max-h-32 sm:max-w-full sm:max-h-full"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-6/12 px-4">
+            <div class="relative w-full mb-3">
+              <label
+                for="imgs_new"
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                htmlFor="grid-password"
+              >
+                Fotocopia del Carnet (Anverso - Reverso) (Nuevo)
+              </label>
+
+              <label
+                for="dropzone-file"
+                class="sm:col-span-2 flex flex-col items-center justify-center w-full h-auto sm:h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100 dark:border-gray-200 dark:hover:border-gray-100 dark:hover:bg-gray-200 transition duration-300 shadow-sm relative"
+              >
+                <div
+                  class="flex flex-col items-center justify-center pt-2 pb-3 mx-auto"
+                >
+                  <!-- Añadido mx-auto para centrar en pantallas grandes -->
+                  <ng-container *ngIf="imagenesPreviaURL.length > 0">
+                    <div class="flex flex-wrap -mx-2">
+                      <div
+                        *ngFor="let url of imagenesPreviaURL; let i = index"
+                        class="w-full sm:w-1/6 md:w-1/6 lg:w-1/4 xl:w-1/4 px-2 mb-4"
+                      >
+                        <div
+                          class="relative pb-2/3 overflow-hidden border border-gray-300 rounded-lg"
+                        >
+                          <img
+                            [src]="url"
+                            alt="Vista previa"
+                            class="w-full h-full object-cover max-w-32 max-h-32 sm:max-w-full sm:max-h-full"
+                          />
+                          <button
+                            (click)="eliminarImagen(i, $event)"
+                            class="absolute top-2 right-2 px-2 py-1 text-xs text-white bg-red-500 rounded-full hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-400 z-10"
+                          >
+                            <i class="fa-solid fa-trash-can"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <svg
+                    *ngIf="imagenesPreviaURL.length === 0"
+                    class="w-8 h-8 mb-2 text-gray-500 dark:text-gray-400"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 20 16"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                    />
+                  </svg>
+                  <p class="mb-1 text-sm text-gray-500 dark:text-gray-400">
+                    <span class="font-semibold"
+                      >Click para subir una imagen</span
+                    >
+                    o arrastra una imagen
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                    PNG, JPG
+                  </p>
+                </div>
+                <input
+                  name="images"
+                  id="dropzone-file"
+                  type="file"
+                  class="file absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  accept=".jpg, .jpeg, .png"
+                  (change)="onFilesSelected($event)"
+                  multiple
+                />
+              </label>
+              <div *ngIf="imagenesPreviaURL.length >= 1">
+                <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
+                <div
+                  *ngIf="imagenesPreviaURL.length != 2"
+                  class="error text-red-600"
+                >
+                  Debe ingresar 2 imagenes
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <hr class="mt-6 border-b-1 border-blueGray-300" />
-
         <button
           type="submit"
-          class="bg-blue-600 text-white active:bg-blue-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+          class="block mt-5 rounded-lg px-8 py-3 text-center text-sm font-semibold outline-none transition duration-100 focus-visible:ring md:text-base text-white bg-blue-600 hover:bg-blue-500 active:bg-blue-700 transform hover:scale-105 focus:ring-blue-300"
+          [ngClass]="{
+            'cursor-not-allowed': !updateForm.valid
+          }"
+          [disabled]="!updateForm.valid"
         >
           Editar Datos
         </button>

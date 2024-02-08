@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import {
   Observable,
   catchError,
@@ -20,16 +24,17 @@ export class UsuarioService {
   usuarioConectado: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  usuarioDatos: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>({
+  user: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>({
     id: '',
-    nombre: '',
-    apellido: '',
+    name: '',
+    surname: '',
     ci: 0,
-    correo: '',
-    telefono: 0,
+    mail: '',
+    phone: 0,
     subastas: [],
     url_img_1: '',
     url_img_2: '',
+    verify: 0,
   });
 
   constructor(private http: HttpClient) {
@@ -38,7 +43,7 @@ export class UsuarioService {
       this.usuarioConectado = new BehaviorSubject<boolean>(
         sessionStorage.getItem('user') != null
       );
-      this.usuarioDatos = new BehaviorSubject<Usuario>(
+      this.user = new BehaviorSubject<Usuario>(
         JSON.parse(sessionStorage.getItem('user') || '{}')
       );
     }
@@ -47,15 +52,17 @@ export class UsuarioService {
   login(formData: FormData): Observable<any> {
     return this.http.post<any>('proposer/login_proposer', formData).pipe(
       map((response) => {
-        // Guardar el usuario y el token en sessionStorage
-        sessionStorage.setItem('user', JSON.stringify(response.data));
-        sessionStorage.setItem('token', JSON.stringify(response.token));
         // Notificar a los observadores sobre el estado de conexión del usuario
         this.usuarioConectado.next(true);
-        
+
         // Actualizar los datos del usuario en el servicio
-        this.usuarioDatos.next(this.ModelToInterface(response.data));
-  
+        this.user.next(this.ModelToInterface(response.data));
+
+        // Guardar el usuario y el token en sessionStorage
+        sessionStorage.setItem('token', JSON.stringify(response.token));
+        sessionStorage.setItem('user', JSON.stringify(this.user.value));
+        sessionStorage.setItem('user_id', JSON.stringify(this.user.value.id));
+
         // Devolver la respuesta sin modificaciones
         return response;
       }),
@@ -65,16 +72,17 @@ export class UsuarioService {
 
   logout() {
     sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user_id');
     this.usuarioConectado.next(false);
   }
 
-  usuarioUpdate(userData: UsuarioUpdate): Observable<any> {
-    return this.http
-      .get<any>('http://localhost:4200/assets/data-usuarioupdate.json')
-      .pipe(
-        catchError(this.handleError),
-        map((respuesta) => respuesta.respuesta)
-      );
+  /*updateUser(formData: FormData): Observable<Response> {
+    return this.http.post<Response>('proposer/update_proposer', formData);
+  }*/
+
+  updateUser(formData: FormData): Observable<any> {
+    return this.http.post<any>('proposer/edit_proposer_api', formData, this.getHttpHeaders());
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -93,7 +101,7 @@ export class UsuarioService {
   }
 
   get UserData(): Observable<Usuario> {
-    return this.usuarioDatos.asObservable();
+    return this.user.asObservable();
   }
 
   get UserLogged(): Observable<boolean> {
@@ -117,18 +125,47 @@ export class UsuarioService {
     );
   }
 
-  ModelToInterface(data: any): Usuario{
+  ModelToInterface(data: any): Usuario {
     return {
-      id:data.id,
-      nombre:data.nombre,
-      apellido: data.apellido,
+      id: data.id,
+      name: data.nombre,
+      surname: data.apellido,
       ci: data.ci,
-      correo: data.correo,
-      telefono: data.telefono,
+      mail: data.correo,
+      phone: data.telefono,
       url_img_1: data.url_img_1,
       url_img_2: data.url_img_2,
-      subastas: []
+      subastas: [],
+      verify: data.verificado,
       // Puedes incluir otros atributos de userData que coincidan con los de la interfaz Usuario
     } as Usuario;
+  }
+
+  getUser(formData: FormData): Observable<any> {
+    // Realizar la solicitud HTTP
+    return this.http.post('/proposer/get_proposer_by_id', formData, this.getHttpHeaders()).pipe(
+      map((response) => {
+        // Mapear la respuesta a un array de objetos Usuario
+        console.log(response);
+        return response;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getHttpHeaders() {
+    // Obtener el token de sessionStorage
+    const tokenConComillas = sessionStorage.getItem('token');
+
+    // Quitar las comillas del token si están presentes
+    const token = tokenConComillas
+      ? tokenConComillas.replace(/^"(.*)"$/, '$1')
+      : '';
+
+    return {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
   }
 }

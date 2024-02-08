@@ -25,7 +25,7 @@ import { Message } from '../interfaces/message';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css',
+  styleUrl: './registro.component.css', 
 })
 export class RegistroComponent {
   constructor(private http: HttpClient, private router: Router) {}
@@ -51,7 +51,7 @@ export class RegistroComponent {
       Validators.required,
       Validators.minLength(6),
       this.validateNumber,
-    ]),
+    ]), 
     mail: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [
       Validators.required,

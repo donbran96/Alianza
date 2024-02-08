@@ -1,11 +1,12 @@
 export interface Usuario {
     id:string;
-    nombre:string;
-    apellido: string;
+    name:string;
+    surname: string;
     ci:number;
-    correo:string;
-    telefono:number;
+    mail:string;
+    phone:number;
     url_img_1: string;
     url_img_2: string;
+    verify: number;
     subastas: number[];
 }

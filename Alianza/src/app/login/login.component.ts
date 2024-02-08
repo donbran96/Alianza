@@ -46,9 +46,9 @@ export class LoginComponent {
 
       this.loginService.login(formData).subscribe({
         next: (response) => {
+          console.log('Respuesta de la API - LOGIN:', response);
           if (response.success) {
             this.loginForm.reset();
-            console.log('Respuesta de la API:', response);
             this.message.title = 'Enviado';
             this.message.text = 'Datos Correctos.';
             this.message.icon = 'success';
