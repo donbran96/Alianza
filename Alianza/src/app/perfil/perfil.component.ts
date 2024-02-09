@@ -4,6 +4,7 @@ import { Usuario } from '../interfaces/usuario';
 import { Router, RouterLink } from '@angular/router';
 import { ProductosService } from '../servicios/productos.service';
 import { Productos } from '../interfaces/productos';
+
 import {
   FormsModule,
   FormControl,
@@ -18,6 +19,7 @@ import { UsuarioUpdate } from '../interfaces/usuario-update';
 import Swal from 'sweetalert2';
 import { Message } from '../interfaces/message';
 import { CommonModule } from '@angular/common';
+import { GlobalConstants } from '../common/global-constants';
 
 @Component({
   selector: 'app-perfil',
@@ -49,6 +51,9 @@ export class PerfilComponent {
     text: '',
     icon: 'info',
   };
+
+  url_api_images: string =
+    GlobalConstants.appApiURL + 'assets/images/proposers/';
 
   usuarioconectado: boolean = false;
   subastas: number[] = [];
@@ -171,6 +176,7 @@ export class PerfilComponent {
       next: (response) => {
         console.log('Respuesta de la API - UPDATE_USER:', response);
         if (response.success) {
+          this.updateUserData(response.data);
           this.imagenesPreviaURL = [];
           this.updateForm.patchValue({
             images: [],
@@ -178,8 +184,7 @@ export class PerfilComponent {
             password_new: '',
           });
           this.message.title = 'Actualizado';
-          this.message.text =
-            'Datos actaulizados correctamente.';
+          this.message.text = 'Datos actaulizados correctamente.';
           this.message.icon = 'success';
           this.showMessage();
         } else {
@@ -190,6 +195,10 @@ export class PerfilComponent {
         }
       },
       error: (errorData) => {
+        this.message.title = 'Error!';
+        this.message.text = 'Error en la comunicación con el servidor.';
+        this.message.icon = 'error';
+        this.showMessage();
         console.log(errorData);
       },
     });
@@ -296,5 +305,9 @@ export class PerfilComponent {
     this.userData.ci = data.ci;
     this.userData.mail = data.correo;
     this.userData.phone = data.telefono;
+    if (this.imagenesPreviaURL.length != 0) {
+      this.userData.url_img_1 = data.url_img_1;
+      this.userData.url_img_2 = data.url_img_2;
+    }
   }
 }

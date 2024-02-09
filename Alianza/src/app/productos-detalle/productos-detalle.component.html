@@ -128,15 +128,19 @@
         <!-- price - end -->
         <div class="formulario">
           <form>
-            <input
-              type="number"
-              id="puja"
-              [(ngModel)]="puja"
-              [ngModelOptions]="{ standalone: true }"
-              [step]="aumento"
-              class="input-number"
-            />
-            <span>Bs. </span>
+            <div style="display: inline-block;">
+              <input
+                type="number"
+                id="puja"
+                [(ngModel)]="puja"
+                [ngModelOptions]="{ standalone: true }"
+                [step]="aumento"
+                aria-describedby="helper-text-explanation"
+                class="bg-white border mr-5 border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+              <span>Bs. </span>
+            </div>
+            
           </form>
         </div>
 
@@ -154,5 +158,3 @@
     </div>
   </div>
 </div>
-
-<app-top-clientes-ofertas></app-top-clientes-ofertas>

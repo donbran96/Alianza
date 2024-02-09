@@ -7,7 +7,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UsuarioService } from '../servicios/usuario.service';
 import { core } from '@angular/compiler';
 import { LoginRequest } from '../interfaces/login-request';
@@ -17,11 +17,13 @@ import { Message } from '../interfaces/message';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  isModalOpen: Boolean = false;
+
   userInvalid: boolean = false;
   message: Message = {
     title: '',
@@ -46,7 +48,7 @@ export class LoginComponent {
 
       this.loginService.login(formData).subscribe({
         next: (response) => {
-          console.log('Respuesta de la API - LOGIN:', response);
+          console.log('Respuesta de la API - LOGIN: ', response);
           if (response.success) {
             this.loginForm.reset();
             this.message.title = 'Enviado';
@@ -57,7 +59,7 @@ export class LoginComponent {
           } else {
             this.message.title = 'Error!';
             this.message.text =
-              'Credenciales incorrectas, intentelo denuevo.';
+              'Credenciales incorrectas, intentelo de nuevo.';
             this.message.icon = 'error';
             this.showMessage();
           }
@@ -85,5 +87,9 @@ export class LoginComponent {
       timerProgressBar: true, // Muestra una barra de progreso
       showConfirmButton: false, // Oculta el botón de confirmación
     });
+  }
+
+  toggleModal() {
+    this.isModalOpen = !this.isModalOpen;
   }
 }

@@ -26,26 +26,25 @@
           />
 
           <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
-        <div
-        *ngIf="
-          loginForm.get('mail')?.invalid &&
-          (loginForm.get('mail')?.dirty ||
-            loginForm.get('mail')?.touched)
-        "
-      >
-        <div
-          *ngIf="loginForm.get('mail')?.errors?.['required']"
-          class="error text-red-600"
-        >
-          Ingrese su dirección de Correo Electrónico
-        </div>
-        <div
-          *ngIf="loginForm.get('mail')?.errors?.['email']"
-          class="error text-red-600"
-        >
-          El Correo Electrónico no es válido
-        </div>
-      </div>
+          <div
+            *ngIf="
+              loginForm.get('mail')?.invalid &&
+              (loginForm.get('mail')?.dirty || loginForm.get('mail')?.touched)
+            "
+          >
+            <div
+              *ngIf="loginForm.get('mail')?.errors?.['required']"
+              class="error text-red-600"
+            >
+              Ingrese su dirección de Correo Electrónico
+            </div>
+            <div
+              *ngIf="loginForm.get('mail')?.errors?.['email']"
+              class="error text-red-600"
+            >
+              El Correo Electrónico no es válido
+            </div>
+          </div>
         </div>
 
         <div>
@@ -62,20 +61,20 @@
             class="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring"
           />
           <!-- Mostrar mensaje de error si el campo es inválido y se ha tocado -->
-        <div
-        *ngIf="
-          loginForm.get('password')?.invalid &&
-          (loginForm.get('password')?.dirty ||
-            loginForm.get('password')?.touched)
-        "
-      >
-        <div
-          *ngIf="loginForm.get('password')?.errors?.['required']"
-          class="error text-red-600"
-        >
-          Ingrese su Contraseña
-        </div>
-      </div>
+          <div
+            *ngIf="
+              loginForm.get('password')?.invalid &&
+              (loginForm.get('password')?.dirty ||
+                loginForm.get('password')?.touched)
+            "
+          >
+            <div
+              *ngIf="loginForm.get('password')?.errors?.['required']"
+              class="error text-red-600"
+            >
+              Ingrese su Contraseña
+            </div>
+          </div>
         </div>
 
         <button
@@ -96,3 +95,9 @@
     </form>
   </div>
 </div>
+<script>
+  // Initialization for ES Users
+  import { Modal, Ripple, initTE } from "tw-elements";
+
+  initTE({ Modal, Ripple });
+</script>

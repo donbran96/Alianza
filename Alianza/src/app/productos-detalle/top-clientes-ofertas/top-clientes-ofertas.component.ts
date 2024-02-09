@@ -13,16 +13,16 @@ export class TopClientesOfertasComponent {
   userService: UsuarioService = inject(UsuarioService);
   list_proposers: Usuario[] = [];
   ngOnInit(){
-    this.userService.getUsers().subscribe({
+    /*this.userService.getUsers().subscribe({
       next:(proposersData)=>{
         this.list_proposers=proposersData;
       },
       error:(errorData)=>{
-        console.error(errorData);
+        console.error('Erro en la API Get Proposer' + errorData);
       },
       complete:()=>{
         console.info('Clientes obtenidos');
       }
-    });
+    });*/
   }
 }
