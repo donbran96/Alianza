@@ -31,6 +31,8 @@ import { GlobalConstants } from '../common/global-constants';
 export class PerfilComponent {
   conectado: boolean = false;
 
+  iconVerify: string = '';
+
   imagenesPreviaURL: (string | ArrayBuffer | null)[] = [];
 
   userData: Usuario = {
@@ -112,6 +114,9 @@ export class PerfilComponent {
           if (response.success) {
             this.updateUserData(response.data);
             this.updateFormData();
+            if(this.userData.verify == 2){
+              this.showMessagueInfo();
+            }
           } else {
             this.message.title = 'Error!';
             this.message.text = 'Token invalido.';
@@ -168,13 +173,9 @@ export class PerfilComponent {
       formData.append('images[]', file, file.name);
     }
 
-    if (imagesFormArray.length == 0) {
-      formData.append('images[]', '[]');
-    }
-
     this.loginService.updateUser(formData).subscribe({
       next: (response) => {
-        console.log('Respuesta de la API - UPDATE_USER:', response);
+        console.log('Respuesta de la API - UPDATE USER:', response);
         if (response.success) {
           this.updateUserData(response.data);
           this.imagenesPreviaURL = [];
@@ -309,5 +310,13 @@ export class PerfilComponent {
       this.userData.url_img_1 = data.url_img_1;
       this.userData.url_img_2 = data.url_img_2;
     }
+  }
+
+  showMessagueInfo(): void {
+    this.message.title = 'Advertencia';
+    this.message.text =
+      'Los datos guardados, o la información registradas han sido rechazados, por favor verificar todos sus datos e imagenes enviadas.';
+    this.message.icon = 'warning';
+    this.showMessage();
   }
 }

@@ -82,24 +82,7 @@ export class UsuarioService {
   }*/
 
   updateUser(formData: FormData): Observable<any> {
-    return this.http.post<any>('proposer/edit_proposer_api', formData, this.getHttpHeaders()).pipe(
-      map((response) => {
-        // Notificar a los observadores sobre el estado de conexión del usuario
-        this.usuarioConectado.next(true);
-
-        console.log('SERVICE' + response);
-
-        // Actualizar los datos del usuario en el servicio
-        this.user.next(this.ModelToInterface(response.data));
-
-        // Guardar el usuario y el token en sessionStorage
-        sessionStorage.setItem('user', JSON.stringify(this.user.value));
-
-        // Devolver la respuesta sin modificaciones
-        return response;
-      }),
-      catchError(this.handleError)
-    );
+    return this.http.post<any>('proposer/edit_proposer_api', formData, this.getHttpHeaders());
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -156,7 +139,6 @@ export class UsuarioService {
     return this.http.post('/proposer/get_proposer_by_id', formData, this.getHttpHeaders()).pipe(
       map((response) => {
         // Mapear la respuesta a un array de objetos Usuario
-        console.log(response);
         return response;
       }),
       catchError(this.handleError)

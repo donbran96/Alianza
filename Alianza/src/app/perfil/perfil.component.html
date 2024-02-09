@@ -5,23 +5,54 @@
   >
     <div class="rounded-t bg-white mb-0 px-6 py-6">
       <div class="text-center flex justify-between">
-        <h6 class="text-blueGray-700 text-xl font-bold uppercase mr-3">Mi Cuenta</h6>
-        <button
-          class="px-4 py-2 rounded justify-end text-white mr-3"
-          [ngClass]="{
-            'bg-green-700': userData.verify == 1,
-            'bg-red-700': userData.verify != 1
-          }"
-          [disabled]="true"
-        >
-          <i
-            [ngClass]="{
-              'fa-solid fa-user-check': userData.verify == 1,
-              'fa fa-user-xmark': userData.verify != 1
-            }"
-          ></i>
-          Proponente {{ userData.verify == 1 ? "Verificado" : "No Verificado" }}
-        </button>
+        <h6 class="text-blueGray-600 text-xl font-bold uppercase mr-3">
+          Mi Cuenta
+        </h6>
+        <div [ngSwitch]="userData.verify">
+          <div *ngSwitchCase="'0'">
+            <button
+              class="px-4 py-2 rounded justify-end text-white mr-3"
+              ngClass="bg-red-600"
+              [disabled]="true"
+            >
+              <i class="fa fa-user-xmark"></i>
+              Proponente No Verificado
+            </button>
+          </div>
+          <div *ngSwitchCase="'1'">
+            <button
+              class="px-4 py-2 rounded justify-end text-white mr-3"
+              ngClass="bg-green-600"
+              [disabled]="true"
+            >
+              <i class="fa fa-user-check"></i>
+              Proponente Verificado
+            </button>
+          </div>
+          <div *ngSwitchCase="'2'">
+            <button
+              class="px-4 py-2 rounded justify-end text-white mr-3"
+              ngClass="bg-red-600"
+              [disabled]="true"
+            >
+              <i class="fa-solid fa-user-xmark"></i>
+              Datos del Proponente Rechazado
+            </button>
+          </div>
+          <div *ngSwitchCase="'3'">
+            <button
+              class="px-4 py-2 rounded justify-end text-white mr-3"
+              ngClass="bg-yellow-600"
+              [disabled]="true"
+            >
+              <i class="fa-solid fa-user-slash"></i>
+              Cuenta del Proponente Suspendida
+            </button>
+          </div>
+          <div *ngSwitchDefault>
+            <i class="fa-solid fa-info"></i>Default {{ userData.verify }}
+          </div>
+        </div>
 
         <button
           (click)="logout()"

@@ -22,8 +22,6 @@ import { Message } from '../interfaces/message';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  isModalOpen: Boolean = false;
-
   userInvalid: boolean = false;
   message: Message = {
     title: '',
@@ -83,13 +81,9 @@ export class LoginComponent {
       title: this.message.title,
       text: this.message.text,
       icon: this.message.icon,
-      timer: 3000, // Tiempo en milisegundos (en este caso, 3 segundos)
+      timer: 5000, // Tiempo en milisegundos (en este caso, 3 segundos)
       timerProgressBar: true, // Muestra una barra de progreso
       showConfirmButton: false, // Oculta el botón de confirmación
     });
-  }
-
-  toggleModal() {
-    this.isModalOpen = !this.isModalOpen;
   }
 }
