@@ -1,6 +1,6 @@
 {
     "/proposer/*": {
-        "target": "http://192.168.0.131:80/alianza",
+        "target": "http://192.168.0.119:80/alianza",
         "secure": false,
         "logLevel": "debug"
     }

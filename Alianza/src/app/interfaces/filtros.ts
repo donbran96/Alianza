@@ -1,6 +1,8 @@
 export interface Filtros {
-    categoria: string | null;
-    marca: string | null;
-    anio: number | null;
-    mes: number | null;
+    categoria: string;
+    estado: number;
+    anio: number;
+    mes: number;
+    palabra: string;
+    orden: number;
   }

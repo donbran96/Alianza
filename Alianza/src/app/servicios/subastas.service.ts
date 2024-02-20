@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, filter, map, throwError } from 'rxjs';
-import { Categorias } from '../interfaces/categorias';
+import { Observable, catchError, throwError } from 'rxjs';
+import { Subastas } from '../interfaces/subastas';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriasService {
+
+export class SubastaService {
   constructor(private http: HttpClient) {}
-  
-  getCategorias(): Observable<Categorias[]> {
+  getSubastas(): Observable<Subastas[]> {
     return this.http
-      .get<Categorias[]>('../../assets/data-categorias.json')
+      .get<Subastas[]>('../../assets/data-subastas.json')
       .pipe(catchError(this.handleError));
   }
 

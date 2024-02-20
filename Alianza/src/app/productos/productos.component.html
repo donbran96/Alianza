@@ -1,110 +1,233 @@
-<div class="contenedor">
-  <div class="bg-white py-6 sm:py-8 lg:py-12">
-    <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-      <!-- text - start -->
-      <div class="mb-10 md:mb-16">
-        <h2
-          class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl"
-        >
-          SUBASTAS DISPONIBLES
-        </h2>
-
-        <p class="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
-          {{ anio }} - {{ mes }}
-        </p>
-        <a
-          routerLink="/productos/categoria/todos"
-          class="inline-block rounded-lg bg-blue-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-600 focus-visible:ring active:bg-blue-700 md:text-base"
-          >Ver más ...</a
-        >
-      </div>
-      <!-- text - end -->
-      <div
-        class="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-3"
+<div class="-mx-4 flex flex-wrap mt-5 mr-5 ml-5">
+  <div class="w-full px-4 md:w-1/2 lg:w-1/4">
+    <div class="mb-12">
+      <label
+        for="categoriaDropdown"
+        class="block text-sm font-medium text-gray-700"
+        >CATEGORÍAS:</label
       >
-        @for(producto of productos; track producto.titulo){
-        <!-- product - start -->
-        <div>
-          <a
-            [routerLink]="'/productos/' + producto.id"
-            class="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3"
-          >
-            <img
-              src="{{ producto.imagenes[0] }}"
-              loading="lazy"
-              alt="Photo by Austin Wade"
-              class="h-full w-full object-cover object-center transition duration-500 group-hover:scale-150"
-            />
-
-            <div class="absolute left-0 bottom-2 flex gap-2">
-              <span
-                class="rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white"
-                >{{ producto.categoria }}</span
-              >
-              <span
-                class="rounded-lg bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-wider text-gray-800"
-                >{{ producto.modelo }}</span
-              >
-            </div>
-          </a>
-
-          <div class="flex items-start justify-between gap-2 px-2">
-            <div class="flex flex-col">
-              <a
-                [routerLink]="'/productos/' + producto.id"
-                class="text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl"
-                >{{ producto.titulo }}</a
-              >
-              <span class="text-gray-500">Fecha: {{ producto.fecha_fin }}</span>
-            </div>
-
-            <div class="flex flex-col items-end">
-              <span class="font-bold text-gray-600 lg:text-lg"
-                >{{ producto.puja_actual }} Bs.</span
-              >
-              <span class="text-sm text-red-500 line-through"></span>
-            </div>
-
-            <button
-              [routerLink]="'/productos/' + producto.id"
-              class="block rounded-lg bg-blue-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-700 focus-visible:ring active:bg-blue-600 md:text-base"
-            >
-              Pujar
-            </button>
-          </div>
-        </div>
-        <!-- product - end -->
-        } @if(productos.length==0){
-        <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
-          <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <section class="flex flex-col items-center">
-              <div
-                class="flex max-w-xl flex-col items-center pb-0 pt-8 text-center sm:pb-16 lg:pb-32 lg:pt-32"
-              >
-                <h5
-                  class="mb-4 text-center text-2xl font-bold text-gray-700 md:mb-6 lg:text-3xl uppercase"
-                >
-                  Sin Productos...
-                </h5>
-
-                <p
-                  class="mb-8 leading-relaxed text-gray-500 md:mb-12 xl:text-lg"
-                >
-                  No existe productos en el mes actual.
-                </p>
-              </div>
-            </section>
-          </div>
-        </div>
-        }
-      </div>
-      <div class="mb-10 md:mb-16 mt-5">
-        <a
-          routerLink="/productos/categoria/todos"
-          class="inline-block rounded-lg bg-blue-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-600 focus-visible:ring active:bg-blue-700 md:text-base"
-          >Ver más ...</a
+      <div class="relative z-20">
+        <select
+          id="categoriaDropdown"
+          [(ngModel)]="filtros.categoria"
+          (ngModelChange)="filtrarProductos()"
+          name="categoria"
+          class="relative z-20 w-full appearance-none rounded-lg border border-stroke dark:border-dark-3 bg-transparent py-[10px] px-5 text-dark-6 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2"
         >
+          <option value="todos">Seleccione una categoría</option>
+          <option
+            *ngFor="let categoria of categorias"
+            [value]="categoria.nombre"
+          >
+            {{ categoria.nombre }}
+          </option>
+        </select>
+        <span
+          class="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"
+        >
+        </span>
       </div>
     </div>
+  </div>
+
+  <div class="w-full px-4 md:w-1/2 lg:w-1/4">
+    <div class="mb-12">
+      <label for="anioDropdown" class="block text-sm font-medium text-gray-700"
+        >AÑOS:</label
+      >
+      <div class="relative z-20">
+        <select
+          id="anioDropdown"
+          [(ngModel)]="filtros.anio"
+          (ngModelChange)="filtrarProductos()"
+          name="anio"
+          class="relative z-20 w-full appearance-none rounded-lg border border-stroke dark:border-dark-3 bg-transparent py-[10px] px-5 text-dark-6 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2"
+        >
+          <option value="0">Seleccione un año</option>
+          <option *ngFor="let anio of anios" [value]="anio.anio">
+            {{ anio.anio }}
+          </option>
+        </select>
+        <span
+          class="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"
+        >
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full px-4 md:w-1/2 lg:w-1/4">
+    <div class="mb-12">
+      <label for="mesDropdown" class="block text-sm font-medium text-gray-700"
+        >MESES:</label
+      >
+      <div class="relative z-20">
+        <select
+          id="mesDropdown"
+          [(ngModel)]="filtros.mes"
+          (ngModelChange)="filtrarProductos()"
+          name="mes"
+          class="relative z-20 w-full appearance-none rounded-lg border border-stroke dark:border-dark-3 bg-transparent py-[10px] px-5 text-dark-6 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2"
+        >
+          <option value="0">Seleccione un mes</option>
+          <option *ngFor="let mes of meses" [value]="mes.id">
+            {{ mes.name }}
+          </option>
+        </select>
+        <span
+          class="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"
+        ></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full px-4 md:w-1/2 lg:w-1/4">
+    <div class="mb-12">
+      <label for="mesDropdown" class="block text-sm font-medium text-gray-700"
+        >ORDEN:</label
+      >
+      <div class="relative z-20">
+        <select
+          id="ordenDropdown"
+          [(ngModel)]="filtros.orden"
+          (ngModelChange)="filtrarProductos()"
+          name="orden"
+          class="relative z-20 w-full appearance-none rounded-lg border border-stroke dark:border-dark-3 bg-transparent py-[10px] px-5 text-dark-6 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2"
+        >
+          <option value="0">Seleccione un orden</option>
+          <option *ngFor="let ord of orden" [value]="ord.id">
+            {{ ord.nombre }}
+          </option>
+        </select>
+        <span
+          class="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"
+        ></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full justify-center">
+    <div class="mb-12">
+      <div class="relative">
+        <input
+          type="text"
+          name="q"
+          class="relative z-20 w-full appearance-none rounded-lg border border-stroke dark:border-dark-3 bg-transparent py-[10px] px-5 text-dark-6 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2"
+          placeholder="Buscar"
+          (input)="filtrarProductos()"
+          [(ngModel)]="filtros.palabra"
+        />
+        <svg
+          class="text-teal-400 h-5 w-5 absolute top-3.5 right-3 fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 56.966 56.966"
+          style="enable-background: new 0 0 56.966 56.966"
+          xml:space="preserve"
+        >
+          <path
+            d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z"
+          ></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white py-6 sm:py-8 lg:py-12">
+  <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+    <!-- text - start -->
+    <div class="mb-10 md:mb-16">
+      <h2
+        class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl uppercase"
+      >
+        CATEGORÍA ACTUAL:
+        {{ filtros.categoria == "" ? "TODOS" : filtros.categoria }}
+      </h2>
+    </div>
+    <!-- text - end -->
+
+    <div
+      class="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-3"
+    >
+      @for(producto of productos; track producto.id){
+      <!-- product - start -->
+      <div>
+        <a
+          [routerLink]="'' + producto.id"
+          class="group relative mb-2 block h-96 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:mb-3"
+        >
+          <img
+            src="{{ producto.images[0] }}"
+            loading="lazy"
+            alt="Foto de Austin Wade"
+            class="h-full w-full object-cover object-center transition duration-500 group-hover:scale-150"
+          />
+
+          <div class="absolute left-0 bottom-2 flex gap-2">
+            <span
+              class="rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white"
+              >{{ producto.categoria }}</span
+            >
+            <span
+              class="rounded-lg bg-white px-3 py-1.5 text-sm font-bold uppercase tracking-wider text-gray-800"
+              >+ Añadir</span
+            >
+          </div>
+        </a>
+
+        <div class="flex items-start justify-between gap-2 px-2">
+          <div class="flex flex-col">
+            <a
+              [routerLink]="'' + producto.id"
+              class="text-lg font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-xl"
+              >{{ producto.nombre_comercial }}</a
+            >
+            <span class="text-gray-500">Fecha: {{ producto.fecha_fin }}</span>
+          </div>
+
+          <div class="flex flex-col items-end">
+            <span class="font-bold text-gray-600 lg:text-lg"
+              >{{ producto.precio_base }} Bs.</span
+            >
+            <span class="text-sm text-red-500 line-through"></span>
+          </div>
+
+          <button
+            [routerLink]="'/productos/' + producto.id"
+            class="block rounded-lg bg-blue-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-blue-300 transition duration-100 hover:bg-blue-700 focus-visible:ring active:bg-blue-600 md:text-base"
+          >
+            Pujar
+          </button>
+        </div>
+      </div>
+      <!-- product - end -->
+      }
+    </div>
+    @if(productos.length==0){
+    <div class="bg-white pb-6 sm:pb-8 lg:pb-12">
+      <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
+        <section class="flex flex-col items-center">
+          <div
+            class="flex max-w-xl flex-col items-center pb-0 pt-8 text-center sm:pb-16 lg:pb-32 lg:pt-32"
+          >
+            <h5
+              class="mb-4 text-center text-2xl font-bold text-gray-700 md:mb-6 lg:text-3xl uppercase"
+            >
+              Sin Productos...
+            </h5>
+
+            <p class="mb-8 leading-relaxed text-gray-500 md:mb-12 xl:text-lg">
+              Vuelve a elegir nuevamente los filtros para obtener otros
+              resultados.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+    }
   </div>
 </div>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { ProductosComponent } from '../productos/productos.component';
 
 @Component({
   selector: 'app-subastas',
   standalone: true,
-  imports: [ProductosComponent],
+  imports: [],
   templateUrl: './subastas.component.html',
   styleUrl: './subastas.component.css'
 })

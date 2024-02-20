@@ -1,34 +1,42 @@
 [
     {
         "id": 1,
-        "name": "Automotor"
+        "nombre": "Automotor",
+        "descripcion": "default"
     },
     {
         "id": 2,
-        "name": "Maquinaria"
+        "nombre": "Maquinaria",
+        "descripcion": "default"
     },
     {
         "id": 3,
-        "name": "Equipos Electronicos"
+        "nombre": "Equipos Electronicos",
+        "descripcion": "default"
     },
     {
         "id": 4,
-        "name": "Linea Blanca"
+        "nombre": "Linea Blanca",
+        "descripcion": "default"
     },
     {
         "id": 5,
-        "name": "Muebles"
+        "nombre": "Muebles",
+        "descripcion": "default"
     },
     {
         "id": 6,
-        "name": "Materiales en deshuso chatarra"
+        "nombre": "Materiales en deshuso chatarra",
+        "descripcion": "default"
     },
     {
         "id": 7,
-        "name": "Repuestos y partes"
+        "nombre": "Repuestos y partes",
+        "descripcion": "default"
     },
     {
         "id": 8,
-        "name": "Otros"
+        "nombre": "Otros",
+        "descripcion": "default"
     }
 ]

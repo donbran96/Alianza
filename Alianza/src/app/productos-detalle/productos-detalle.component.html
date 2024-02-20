@@ -4,7 +4,7 @@
       <!-- images - start -->
       <div class="grid gap-4 lg:grid-cols-5">
         <div class="order-last flex gap-4 lg:order-none lg:flex-col">
-          @for (imagen of imagenes; track $index) {
+          @for (imagen of producto?.images; track $index) {
           <div class="overflow-hidden rounded-lg">
             <img
               loading="lazy"
@@ -39,88 +39,19 @@
         <!-- name - start -->
         <div class="mb-2 md:mb-3">
           <span class="mb-0.5 inline-block text-gray-500">{{
-            categorias
+            producto?.categoria
           }}</span>
           <h2 class="text-2xl font-bold text-gray-800 lg:text-3xl uppercase">
-            {{ name }}
+            {{ producto?.nombre_completo }}
           </h2>
         </div>
         <!-- name - end -->
-
-        <!-- rating - start -->
-        <div class="mb-6 flex items-center gap-3 md:mb-10">
-          <div
-            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
-          >
-            <span class="text-sm uppercase"><b>Tipo:</b></span>
-          </div>
-
-          <span class="text-sm text-gray-500 transition duration-100">{{
-            tipo
-          }}</span>
-          <div
-            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
-          >
-            <span class="text-sm uppercase"><b>Marca:</b></span>
-          </div>
-
-          <span class="text-sm text-gray-500 transition duration-100">{{
-            marca
-          }}</span>
-        </div>
-        <!-- rating - end -->
-
-        <!-- rating - start -->
-        <div class="mb-6 flex items-center gap-3 md:mb-10">
-          <div
-            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
-          >
-            <span class="text-sm uppercase"><b>Modelo:</b></span>
-          </div>
-
-          <span class="text-sm text-gray-500 transition duration-100">{{
-            modelo
-          }}</span>
-          <div
-            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
-          >
-            <span class="text-sm uppercase"><b>Color:</b></span>
-          </div>
-
-          <span class="text-sm text-gray-500 transition duration-100">{{
-            color
-          }}</span>
-        </div>
-        <!-- rating - end -->
-
-        <!-- rating - start -->
-        <div class="mb-6 flex items-center gap-3 md:mb-10">
-          <div
-            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
-          >
-            <span class="text-sm uppercase"><b>Año:</b></span>
-          </div>
-
-          <span class="text-sm text-gray-500 transition duration-100">{{
-            anio
-          }}</span>
-          <div
-            class="flex h-7 items-center gap-1 rounded-full bg-blue-500 px-2 text-white"
-          >
-            <span class="text-sm uppercase"><b>Marca:</b></span>
-          </div>
-
-          <span class="text-sm text-gray-500 transition duration-100">{{
-            marca
-          }}</span>
-        </div>
-        <!-- rating - end -->
 
         <!-- price - start -->
         <div class="mb-4">
           <div class="flex items-end gap-2">
             <span class="text-xl font-bold text-gray-800 md:text-2xl"
-              >{{ puja_actual }} Bs.</span
+              >{{ producto?.precio_base }} Bs.</span
             >
             <span class="mb-0.5 text-red-500 line-through"></span>
           </div>
@@ -134,7 +65,7 @@
                 id="puja"
                 [(ngModel)]="puja"
                 [ngModelOptions]="{ standalone: true }"
-                [step]="aumento"
+                [step]="producto?.incremento_puja"
                 aria-describedby="helper-text-explanation"
                 class="bg-white border mr-5 border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
               />

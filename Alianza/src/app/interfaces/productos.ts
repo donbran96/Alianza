@@ -1,7 +1,20 @@
 import { DecimalPipe } from "@angular/common";
 
 export interface Productos {
+
     id:number;
+    nombre_comercial: string;
+    nombre_completo: string;
+    observacion: string;
+    images: string[];
+    precio_base: number;
+    fecha_inicio: Date;
+    fecha_fin: Date;
+    categoria: string;
+    incremento_puja: number;
+    estado: number;
+
+    /*id:number;
     imagenes: string[];
     titulo: string;
     puja_actual: number;
@@ -16,5 +29,6 @@ export interface Productos {
     color: string;
     anio: number;
     placa: string;
+    */
 }
 

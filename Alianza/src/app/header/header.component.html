@@ -17,6 +17,19 @@
                 <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">INICIO</a>
             </li>
             <li (mouseover)="mostrarSubmenu(true)" (mouseleave)="mostrarSubmenu(false)">
+                <a routerLink="subastas/productos" routerLinkActive="active" [ngClass]="{ 'active' : mantenerHover}">SUBASTAS</a>
+                @if(submenu){
+                    <ul class="submenu" (mouseover)="activarHover(true)" (mouseleave)="activarHover(false)">
+                        @for (subasta of subastas; track subasta) {
+                            <li>
+                                <a [routerLink]="'subastas/' + subasta.id +'/productos'" routerLinkActive="active2">{{subasta.estado}}</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+            <!--
+            <li (mouseover)="mostrarSubmenu(true)" (mouseleave)="mostrarSubmenu(false)">
                 <a routerLink="/productos/categoria/todos" routerLinkActive="active" [ngClass]="{ 'active' : mantenerHover}">SUBASTAS</a>
                 @if(submenu){
                     <ul class="submenu" (mouseover)="activarHover(true)" (mouseleave)="activarHover(false)">
@@ -28,6 +41,7 @@
                     </ul>
                 }
             </li>
+        -->
             <li>
                 <a routerLink="/nosotros" routerLinkActive="active">QUIENES SOMOS</a>
             </li>

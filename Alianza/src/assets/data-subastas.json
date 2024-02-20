@@ -1,0 +1,14 @@
+[
+    {
+        "id": 3,
+        "estado": "Iniciado"
+    },
+    {
+        "id": 4,
+        "estado": "Terminado"
+    },
+    {
+        "id": 6,
+        "estado": "Cancelado"
+    }
+]

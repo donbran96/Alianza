@@ -11,12 +11,12 @@ export class ProductosService {
   constructor(private http: HttpClient) {}
   getProductos(): Observable<Productos[]> {
     return this.http
-      .get<Productos[]>('../../assets/data-products.json')
+      .get<Productos[]>('../../assets/data-products-act.json')
       .pipe(catchError(this.handleError));
   }
 
-  getProductosByCategory(categoria: string): Observable<Productos[]> {
-    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
+  /*getProductosByCategory(categoria: string): Observable<Productos[]> {
+    return this.http.get<Productos[]>('../../assets/data-products-act.json').pipe(
       catchError(this.handleError),
       filter((productos: Productos[]) => !!productos),
       // Filtra la lista para encontrar los productos con los ID proporcionados
@@ -32,17 +32,12 @@ export class ProductosService {
   }
 
   getProductosByFilter(filtros: Filtros): Observable<Productos[]> {
-    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
+    return this.http.get<Productos[]>('../../assets/data-products-act.json').pipe(
       catchError(this.handleError),
       map((productos: Productos[]) => {
         if (filtros.categoria != '' && filtros.categoria != 'todos') {
           productos = productos.filter(
             (producto) => producto.categoria === filtros.categoria
-          );
-        }
-        if (filtros.marca != '') {
-          productos = productos.filter(
-            (producto) => producto.marca === filtros.marca
           );
         }
         if (filtros.anio != 0) {
@@ -62,29 +57,92 @@ export class ProductosService {
         return productos;
       })
     );
-  }
+  }*/
 
   getProductoById(id: number): Observable<Productos> {
-    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
-      catchError(this.handleError),
-      filter((productos: any) => !!productos),
-      // Filtra la lista para encontrar el producto con el ID proporcionado
-      map((productos) =>
-        productos.find((producto: { id: number }) => producto.id === id)
-      )
-    );
+    return this.http
+      .get<Productos[]>('../../assets/data-products-act.json')
+      .pipe(
+        catchError(this.handleError),
+        filter((productos: any) => !!productos),
+        // Filtra la lista para encontrar el producto con el ID proporcionado
+        map((productos) =>
+          productos.find((producto: { id: number }) => producto.id === id)
+        )
+      );
   }
 
   getProductosById(array_id: number[]): Observable<Productos[]> {
-    return this.http.get<Productos[]>('../../assets/data-products.json').pipe(
-      catchError(this.handleError),
-      filter((productos: Productos[]) => !!productos),
-      // Filtra la lista para encontrar los productos con los ID proporcionados
-      map((productos: Productos[]) =>
-        productos.filter((producto) => array_id.includes(producto.id))
-      )
-    );
+    return this.http
+      .get<Productos[]>('../../assets/data-products-act.json')
+      .pipe(
+        catchError(this.handleError),
+        filter((productos: Productos[]) => !!productos),
+        // Filtra la lista para encontrar los productos con los ID proporcionados
+        map((productos: Productos[]) =>
+          productos.filter((producto) => array_id.includes(producto.id))
+        )
+      );
   }
+
+  getProductosByFilter(filtros: Filtros): Observable<Productos[]> {
+    return this.http
+      .get<Productos[]>('../../assets/data-products-act.json')
+      .pipe(
+        catchError(this.handleError),
+        map((productos: Productos[]) => {
+          if (filtros.categoria != '' && filtros.categoria != 'todos') {
+            productos = productos.filter(
+              (producto) => producto.categoria === filtros.categoria
+            );
+          }
+          if (filtros.anio != 0) {
+            productos = productos.filter(
+              (producto) =>
+                new Date(producto.fecha_fin).getFullYear().toString() ===
+                filtros.anio?.toString()
+            );
+          }
+          if (filtros.mes != 0) {
+            productos = productos.filter(
+              (producto) =>
+                (new Date(producto.fecha_fin).getMonth() + 1).toString() ===
+                filtros.mes?.toString()
+            );
+          }
+          if (filtros.estado != 0 && filtros.estado != null) {
+            productos = productos.filter(
+              (producto) =>
+                producto.estado.toString() === filtros.estado?.toString()
+            );
+          }
+          productos = this.ordenarProductos(productos, filtros);
+          return productos;
+        })
+      );
+  }
+
+  private ordenarProductos(productos: Productos[], filtros: Filtros): Productos[] {
+    switch (filtros.orden) {
+      case 1: // Precio Descendente
+        productos.sort((a, b) => b.precio_base - a.precio_base);
+        break;
+      case 2: // Precio Ascendente
+        productos.sort((a, b) => a.precio_base - b.precio_base);
+        break;
+      case 3: // A-Z
+        productos.sort((a, b) => (a.nombre_comercial > b.nombre_comercial ? 1 : -1));
+        break;
+      case 4: // Z-A
+        productos.sort((a, b) => (a.nombre_comercial < b.nombre_comercial ? 1 : -1));
+        break;
+      default:
+        // No hacer ningún cambio si el tipo de orden no está definido
+        break;
+    }
+    return productos;
+  }
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
