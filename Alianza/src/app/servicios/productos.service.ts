@@ -116,25 +116,45 @@ export class ProductosService {
                 producto.estado.toString() === filtros.estado?.toString()
             );
           }
+          if (filtros.palabra != '') {
+            console.log("palabra")
+            const palabraMinuscula = filtros.palabra.toLowerCase();
+            productos = productos.filter((producto) =>
+              Object.values(producto).some(
+                (propiedad) =>
+                  typeof propiedad === 'string' &&
+                  propiedad.toLowerCase().includes(palabraMinuscula)
+              )
+            );
+          }
           productos = this.ordenarProductos(productos, filtros);
           return productos;
         })
       );
   }
 
-  private ordenarProductos(productos: Productos[], filtros: Filtros): Productos[] {
-    switch (filtros.orden) {
+  private ordenarProductos(
+    productos: Productos[],
+    filtros: Filtros
+  ): Productos[] {
+    switch (parseInt(filtros.orden.toString())) {
       case 1: // Precio Descendente
+        console.log('Entro 1');
         productos.sort((a, b) => b.precio_base - a.precio_base);
+        console.log(productos);
         break;
       case 2: // Precio Ascendente
         productos.sort((a, b) => a.precio_base - b.precio_base);
         break;
       case 3: // A-Z
-        productos.sort((a, b) => (a.nombre_comercial > b.nombre_comercial ? 1 : -1));
+        productos.sort((a, b) =>
+          a.nombre_comercial > b.nombre_comercial ? 1 : -1
+        );
         break;
       case 4: // Z-A
-        productos.sort((a, b) => (a.nombre_comercial < b.nombre_comercial ? 1 : -1));
+        productos.sort((a, b) =>
+          a.nombre_comercial < b.nombre_comercial ? 1 : -1
+        );
         break;
       default:
         // No hacer ningún cambio si el tipo de orden no está definido
@@ -142,7 +162,6 @@ export class ProductosService {
     }
     return productos;
   }
-  
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from '../servicios/productos.service';
 import { Productos } from '../interfaces/productos';
-import { Input } from '@angular/core';
 import { Categorias } from '../interfaces/categorias';
 import { CategoriasService } from '../servicios/categorias.service';
 import { CommonModule } from '@angular/common';
@@ -21,7 +20,10 @@ import { Orden } from '../interfaces/orden';
   imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
+
 })
+
+
 export class ProductosComponent {
 
   productosService: ProductosService = inject(ProductosService);
@@ -49,6 +51,10 @@ export class ProductosComponent {
     palabra: ''
   };
 
+  page: number = 0;
+  totalPages: number = 0;
+  pageSize: number = 1; // Define el número de productos por página
+
   constructor(private route: ActivatedRoute) {}
   ngOnInit() {
     // Suscríbete a los cambios de la ruta
@@ -58,8 +64,8 @@ export class ProductosComponent {
       this.cargarMeses();
       this.cargarOrden();
 
-      this.filtros.estado = params['id_subasta'];
-      
+      this.filtros.estado = params['id_subasta']!=null?params['id_subasta']:0;
+
       this.filtrarProductos();
     });
   }
@@ -121,10 +127,10 @@ export class ProductosComponent {
   }
 
   filtrarProductos() {
-    console.log(this.filtros.orden);
     this.productosService.getProductosByFilter(this.filtros).subscribe({
       next: (productosData) => {
         this.productos = productosData;
+        this.totalPages = Math.ceil(this.productos.length / this.pageSize);
       },
       error: (errorData) => {
         console.error(errorData);
@@ -133,5 +139,23 @@ export class ProductosComponent {
         console.info('Productos obtenidos');
       },
     });
+  }
+
+  nextPage(){
+    if(this.page < this.productos.length){
+      this.page += this.pageSize
+      //this.filtrarProductos()
+      //this.productos.splice(this.page, this.page + this.pageSize)
+      console.log(this.page)
+    }
+  }
+
+  prevPage(){
+    if(this.page > 0){
+      this.page -= this.pageSize;
+      //this.filtrarProductos()
+      //this.productos.splice(this.page, this.page - this.pageSize)
+      console.log(this.page)
+    }
   }
 }
